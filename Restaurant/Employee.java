@@ -1,6 +1,6 @@
 package Restaurant;
 
-public class Employee {
+public abstract class Employee {
   private final String id;
   private final String name;
   private boolean onShift;
@@ -81,7 +81,7 @@ public class Employee {
     }
     ordersHandled++;
   }
-
+  // Equality based on the employee's unique ID
   @Override
   public boolean equals(Object other) {
     if (this == other) {
@@ -89,7 +89,7 @@ public class Employee {
     }
     return other instanceof Employee && id.equals(((Employee) other).id);
   }
-
+  // Hash code based on the employee's unique ID
   @Override
   public int hashCode() {
     if (id == null) {
@@ -98,6 +98,7 @@ public class Employee {
     return id.hashCode();
   }
 
+  // String representation of the employee, including ID, name, shift status, and orders handled
   @Override
   public String toString() {
     return "[" + id + "] " + name + " - " + (onShift ? "on shift" : "off shift")
