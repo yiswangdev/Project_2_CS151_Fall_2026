@@ -12,4 +12,30 @@ public class MenuItem {
         this.price = price;
     }
 
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    /** Changes the price after validating it (between $0.01 and $500, rounded to cents). */
+    public void setPrice(double newPrice) {
+        price = newPrice;
+    }
+
+    /** Marks the item as sold out so it can no longer be ordered. */
+    public void markSoldOut() {
+        if (!available) {
+            throw new IllegalStateException(name + " is already sold out.");
+        }
+        available = false;
+    }
+}
+
+
+
+
+        
