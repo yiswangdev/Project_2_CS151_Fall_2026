@@ -74,5 +74,35 @@ public class Employee {
     return onShift;
   }
 
+  // Called each time the employee moves an order forward
+  public void recordHandledOrder() {
+    if (!onShift) {
+      throw new IllegalStateException(name + " is not on shift.");
+    }
+    ordersHandled++;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) {
+      return true;
+    }
+    return other instanceof Employee && id.equals(((Employee) other).id);
+  }
+
+  @Override
+  public int hashCode() {
+    if (id == null) {
+      return 0;
+    }
+    return id.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "[" + id + "] " + name + " - " + (onShift ? "on shift" : "off shift")
+        + ", " + ordersHandled + " order(s) handled";
+  }
+  
 }
 
