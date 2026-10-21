@@ -24,7 +24,7 @@ public class Customer {
     }
 
     public void leaveRestaurant() {
-        // Missing: release the table through Table's API; this only clears this customer's references.
+        // Missing: release the table through Table; this only clears this customer's references.
         table = null;
         order = null;
     }
