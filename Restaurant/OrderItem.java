@@ -22,4 +22,24 @@ public class OrderItem {
     public void removeCharacteristic(String characteristic) {
         characteristics.remove(characteristic);
     }
+
+    public double calculateSubtotal() {
+        return menuItem.priceFor(quantity);
+    }
+
+    public String getDescription() {
+        String description = quantity + "x ";
+
+        for (String characteristic : characteristics) {
+            description += characteristic + " ";
+        }
+
+        return description + menuItem.getName();
+    }
+
+    @Override
+    public String toString() {
+        return getDescription() + " - $" 
+                + String.format("%.2f", calculateSubtotal());
+    }
 }
