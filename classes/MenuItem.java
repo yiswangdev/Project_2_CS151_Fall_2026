@@ -1,4 +1,4 @@
-package Restaurant;
+package classes;
 
 public class MenuItem {
     
