@@ -13,7 +13,16 @@ public class main {
             System.out.println("3. Exit");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
-            
+            if (choice == 1) {
+                System.out.println("Menu display is not implemented yet.");
+            } else if (choice == 2) {
+                System.out.println("Order placement is not implemented yet.");
+            } else if (choice == 3) {
+                running = false;
+            } else {
+                System.out.println("Invalid option. Please choose 1, 2, or 3.");
+            }
+
         }
         scanner.close();
     }
