@@ -4,12 +4,18 @@ public class MenuItem {
     private final String id;
     private final String name;
     private double price;
-    private boolean available = true;
+    private String description;
+    private int availableQuantity;
 
-    public  MenuItem(String id, String name, double price) {
+    public MenuItem(String id, String name, double price, String description, int availableQuantity) {
+        if (availableQuantity < 0) {
+            throw new IllegalArgumentException("Available quantity cannot be negative.");
+        }
         this.id = id;
         this.name = name;
         this.price = price;
+        this.description = description;
+        this.availableQuantity = availableQuantity;
     }
 
     /** 
@@ -21,12 +27,35 @@ public class MenuItem {
     }
 
     /**
-     * Tells whether this item can currently be ordered
-     * 
-     * @return {@code true} if the item is in stock, {@code false} if it is sold out
+     * Checks whether at least one serving is in stock.
+     *
+     * @return {@code true} if at least one serving is available, {@code false} if it is sold out
      */
     public boolean isAvailable() {
-        return available;
+        return availableQuantity > 0;
+    }
+
+    /**
+     * Checks whether enough servings are available for the requested quantity.
+     *
+     * @param quantity the number of servings requested; must be at least 1
+     * @return {@code true} if the requested quantity is in stock
+     * @throws IllegalArgumentException if the quantity is less than 1
+     */
+    public boolean canFulfillOrder(int quantity) {
+        if (quantity < 1) {
+            throw new IllegalArgumentException("Quantity must be at least 1.");
+        }
+        return quantity <= availableQuantity;
+    }
+
+    /**
+     * Formats the item's name, price, and description for the menu.
+     *
+     * @return a formatted string such as "Burger - $9.50: Beef patty with cheese"
+     */
+    public String formatMenuDisplay() {
+        return String.format("%s - $%.2f: %s", name, price, description);
     }
 
     /**
@@ -45,22 +74,27 @@ public class MenuItem {
      * @throws IllegalStateException if the item is already sold out
      */
     public void markSoldOut() {
-        if (!available) {
+        if (!isAvailable()) {
             throw new IllegalStateException(name + " is already sold out.");
         }
-        available = false;
+        availableQuantity = 0;
     }
 
     /**
-     * Makes a sold-out item orderable again.
+     * Makes a sold-out item orderable again by setting its stock.
      *
+     * @param quantity the number of servings now in stock; must be at least 1
      * @throws IllegalStateException if the item is already in stock
+     * @throws IllegalArgumentException if the quantity is less than 1
      */
-    public void restock() {
-        if (available) {
-        throw new IllegalStateException(name + " is already in stock.");
+    public void restock(int quantity) {
+        if (isAvailable()) {
+            throw new IllegalStateException(name + " is already in stock.");
         }
-        available = true;
+        if (quantity < 1) {
+            throw new IllegalArgumentException("Quantity must be at least 1.");
+        }
+        availableQuantity = quantity;
     }
 
     /**
@@ -118,7 +152,7 @@ public class MenuItem {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %-20s $%6.2f%s", id, name, price, available ? "" : "  (SOLD OUT)");
+        return String.format("[%s] %-20s $%6.2f%s", id, name, price, isAvailable() ? "" : "  (SOLD OUT)");
     }
 }
 
