@@ -1,25 +1,4 @@
 package Restaurant;
-<<<<<<< HEAD
-public class Order {
-
-    public Order(Item, Customer ) {
-
-
-    }
-
-
-    addItem(OrderItem item) {
-        
-    }
-
-    removeItem(OrderItem item) {
-        
-    }
-
-
-
-}
-=======
 import java.util.*;
 public class Order {
     public static final int MAX_QUANTITY_PER_ITEM = 20;
@@ -48,4 +27,3 @@ public class Order {
         return cook; 
     }
 }
->>>>>>> origin
