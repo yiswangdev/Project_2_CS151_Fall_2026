@@ -36,10 +36,10 @@ Classes:
 - Employee: stores shared employee information
 - Server: handles customer orders
 - Cook: prepares food orders
-- Table:
-- OrderHandler:
-- Restaurant: 
-- Main:
+- Table: Represents a restaurant table, including its table number and availability, and the customer or party seated at it
+- OrderHandler: An interface that defines the methods employees use to handle orders, such as accepting orders, updating their status, and finishing orders
+- Restaurant: Manages the overall restaurant system, coordinating components such as tables, the menu, employees, and customer orders
+- Main: Contains the program's entry point and starts the application
 
 Installation Instructions
 
