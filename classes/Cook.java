@@ -3,7 +3,7 @@ package classes;
 import Interface.Orderhandler;
 import java.util.ArrayList;
 
-public class Cook extends Employee {
+public class Cook extends Employee implements Orderhandler {
 
     private ArrayList<Order> currentOrders;
 
@@ -11,7 +11,7 @@ public class Cook extends Employee {
         super(name, employeeID);
         currentOrders = new ArrayList<>();
     }
-
+    
     public boolean canHandleOrder(Order order) {
         return order != null && isAvailableForWork();
     }
@@ -40,6 +40,21 @@ public class Cook extends Employee {
             currentOrders.remove(order);
             completeTask();
             System.out.println("Your order is ready for pickup.");
+        }
+    }
+
+    public void prepareOrder(Order order) {
+        if (canHandleOrder(order)){
+            acceptOrder(order);
+            updateOrderStatus(order);
+            System.out.println(name + " is preparing your order...");
+        }
+    }
+
+    public void addSpecialCharacteristic(OrderItem item, String characteristic) {
+        if (item != null && characteristic != null && !characteristic.isBlank()){
+            item.addCharacteristic(characteristic);
+            System.out.println("Your item has been customized: " + item.getDescription());
         }
     }
 }
