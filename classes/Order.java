@@ -1,5 +1,5 @@
-package Restaurant;
-import java.util.*;
+package classes;
+
 public class Order {
     public static final int MAX_QUANTITY_PER_ITEM = 20;
     private String id;

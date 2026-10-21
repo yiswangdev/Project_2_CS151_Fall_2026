@@ -1,4 +1,5 @@
-package Restaurant;
+package classes;
+
 public class Server extends Employee implements OrderHandler {
     private String specialGreeting;
   public Server(String id, String name) {

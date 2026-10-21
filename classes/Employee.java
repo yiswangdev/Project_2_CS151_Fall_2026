@@ -1,4 +1,4 @@
-package Restaurant;
+package classes;
 
 public abstract class Employee {
   private final String id;
