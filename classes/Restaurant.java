@@ -2,42 +2,44 @@ package classes;
 
 import java.util.ArrayList;
 
+//Created By: Eric Wang
 public class Restaurant {
     ArrayList<Table> tables = new ArrayList<>();
     ArrayList<Employee> employees = new ArrayList<>();
     ArrayList<MenuItem> menuItems = new ArrayList<>();
 
-    public Table findAvailableTable() {
+    public ArrayList<Table> findAvailableTables() {
+        ArrayList<Table> availableTables = new ArrayList<>();
         for (Table table : tables) {
             if (table.isAvailable()) {
-                return table;
+                availableTables.add(table);
             }
         }
-        return null; // No available tables
+        return availableTables;
     }
 
-    public void assignServer(Table table) {
+    public Server assignServer(Table table) {
         for (Employee employee : employees) {
-            if (employee instanceof Server && employee.canTakeOrders()) {
-                // Assign the server to the table
-                break;
+            if (employee instanceof Server server && employee.isAvailableForWork()) {
+                return server;
             }
         }
+        return null; // No available server
     }
 
-    public void assignCook(Order order) {
+    public Cook assignCook(Order order) {
         for (Object employee : employees) {
-            if (employee instanceof Cook cook && cook.canTakeOrders()) {
-                // Assign the cook to the table
-                break;
+            if (employee instanceof Cook cook && cook.isAvailableForWork()) {
+                return cook;
             }
         }
+        return null; // No available cook
     }
 
     public void seatCustomer(Customer customer, Table table) {
         if (table != null && table.isAvailable()) {
-            table.setCustomer(customer);
-            table.setAvailable(false);
+            table.seatCustomer(customer);
+            customer.sitAtTable(table);
         }
     }
 
