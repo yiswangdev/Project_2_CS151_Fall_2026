@@ -68,6 +68,3 @@ public class Table {
         return "Table " + tableNumber + ": Occupied by " + customer;
     }
 }
-
-
-    
