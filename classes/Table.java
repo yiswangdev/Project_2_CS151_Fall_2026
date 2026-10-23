@@ -64,8 +64,8 @@ public class Table {
      */
     public String getTableInfo() {
         if (isAvailable()) {
-            return "Table " + tableNumber + ": Occupied by " + customer;
+            return "Table " + tableNumber + ": Available";
         }
-        return "";
+        return "Table " + tableNumber + ": Occupied by " + customer.name;
     }
 }

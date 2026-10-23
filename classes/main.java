@@ -44,8 +44,11 @@ public class main {
             while (table == null) {
                 System.out.print("Choose a table: ");
                 tableChoice = scanner.nextInt();
-                if (tableChoice >= 1 && tableChoice <= restaurant.tables.size()) {
+                if (tableChoice >= 1 && tableChoice <= restaurant.tables.size()
+                        && restaurant.tables.get(tableChoice - 1).isAvailable()) {
                     table = restaurant.tables.get(tableChoice - 1);
+                } else {
+                    System.out.println("Choose an available table number.");
                 }
             }
             scanner.nextLine();
