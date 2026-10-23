@@ -26,6 +26,14 @@ abstract class Employee {
         employeeCounter++;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getEmployeeID() {
+        return employeeID;
+    }
+
     void assignTask(){
         //some other logic
         isBusy = true;

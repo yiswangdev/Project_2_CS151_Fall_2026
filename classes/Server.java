@@ -20,7 +20,7 @@ public class Server extends Employee implements Orderhandler {
         if (customer == null) {
             throw new IllegalArgumentException("Customer cannot be null.");
         }
-        return greeting + " I'm " + name;
+        return greeting + " I'm " + getName();
     }
 
     public void seatCustomer(Customer customer, Table table) {
@@ -42,7 +42,7 @@ public class Server extends Employee implements Orderhandler {
 
     public String submitOrder(Order order) {
         updateOrderStatus(order);
-        return "Server " + name + " submitted order " + order.getId() + " to the kitchen.";
+        return "Server " + getName() + " submitted order " + order.getId() + " to the kitchen.";
     }
 
     public String deliverOrder(Order order) {
@@ -58,7 +58,7 @@ public class Server extends Employee implements Orderhandler {
     @Override
     public void acceptOrder(Order order) {
         if (!canHandleOrder(order)) {
-            throw new IllegalArgumentException("Order cannot be accepted by " + name);
+            throw new IllegalArgumentException("Order cannot be accepted by " + getName());
         }
         activeOrder = order;
         assignTask();
@@ -67,7 +67,7 @@ public class Server extends Employee implements Orderhandler {
     @Override
     public void updateOrderStatus(Order order) {
         if (order == null || order != activeOrder) {
-            throw new IllegalArgumentException("Order is not being handled by " + name);
+            throw new IllegalArgumentException("Order is not being handled by " + getName());
         }
         order.updateStatus("PLACED");
         System.out.println("Order " + order.getId() + " sent to the kitchen.");
@@ -76,7 +76,7 @@ public class Server extends Employee implements Orderhandler {
     @Override
     public void finishOrder(Order order) {
         if (order == null || order != activeOrder) {
-            throw new IllegalArgumentException("Order is not being handled by " + name);
+            throw new IllegalArgumentException("Order is not being handled by " + getName());
         }
         order.updateStatus("DELIVERED");
         activeOrder = null;

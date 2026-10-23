@@ -16,6 +16,31 @@ public class Restaurant {
         resturantCounter++;
     }
 
+    public void addTable(Table table) {
+        tables.add(table);
+    }
+
+    public void addEmployee(Employee employee) {
+        employees.add(employee);
+    }
+
+    public void addMenuItem(MenuItem menuItem) {
+        menuItems.add(menuItem);
+    }
+
+    public ArrayList<Table> getTables() {
+        return tables;
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    public ArrayList<MenuItem> getMenuItems() {
+        return menuItems;
+    }
+
+
     public ArrayList<Table> findAvailableTables() {
         ArrayList<Table> availableTables = new ArrayList<>();
         for (Table table : tables) {

@@ -68,6 +68,6 @@ public class Table {
         if (isAvailable()) {
             return "Table " + tableNumber + ": Available";
         }
-        return "Table " + tableNumber + ": Occupied by " + customer.name;
+        return "Table " + tableNumber + ": Occupied by " + customer.getName();
     }
 }

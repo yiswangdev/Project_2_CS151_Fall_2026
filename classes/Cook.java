@@ -49,7 +49,7 @@ public class Cook extends Employee implements Orderhandler {
         if (canHandleOrder(order)){
             acceptOrder(order);
             updateOrderStatus(order);
-            System.out.println(name + " is preparing your order...");
+            System.out.println(getName() + " is preparing your order...");
         }
     }
 

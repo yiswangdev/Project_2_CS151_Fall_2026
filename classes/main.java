@@ -14,14 +14,14 @@ public class main {
         restaurant = new Restaurant();
         scanner = new Scanner(System.in);
         for (int i = 1; i <= 4; i++) {
-            restaurant.tables.add(new Table(i));
+            restaurant.addTable(new Table(i));
         }
-        restaurant.employees.add(new Server("Jamie", "S1", "Hey there! Welcome to our restaurant!"));
-        restaurant.employees.add(new Cook("Emily", "C1"));
-        restaurant.menuItems.add(new MenuItem("1", "Burger", 12.99, "Beef patty with cheese", 20));
-        restaurant.menuItems.add(new MenuItem("2", "Alfredo Pasta", 14.99, "Fettuccine in cream sauce", 20));
-        restaurant.menuItems.add(new MenuItem("3", "Caesar Salad", 8.99, "Romaine with parmesan", 20));
-        restaurant.menuItems.add(new MenuItem("4", "Lemonade", 2.99, "Fresh squeezed", 20));
+        restaurant.addEmployee(new Server("Jamie", "S1", "Hey there! Welcome to our restaurant!"));
+        restaurant.addEmployee(new Cook("Emily", "C1"));
+        restaurant.addMenuItem(new MenuItem("1", "Burger", 12.99, "Beef patty with cheese", 20));
+        restaurant.addMenuItem(new MenuItem("2", "Alfredo Pasta", 14.99, "Fettuccine in cream sauce", 20));
+        restaurant.addMenuItem(new MenuItem("3", "Caesar Salad", 8.99, "Romaine with parmesan", 20));
+        restaurant.addMenuItem(new MenuItem("4", "Lemonade", 2.99, "Fresh squeezed", 20));
     }
 
     public void displayTables() {
@@ -33,8 +33,8 @@ public class main {
 
     public void displayMenu() {
         System.out.println("=== Menu ===");
-        for (int i = 0; i < restaurant.menuItems.size(); i++) {
-            System.out.println((i + 1) + ". " + restaurant.menuItems.get(i).formatMenuDisplay());
+        for (int i = 0; i < restaurant.getMenuItems().size(); i++) {
+            System.out.println((i + 1) + ". " + restaurant.getMenuItems().get(i).formatMenuDisplay());
         }
     }
     private int readInt() {
@@ -49,12 +49,12 @@ public class main {
     public void run() {
         String nextCustomer = "y";
         while (nextCustomer.equalsIgnoreCase("y")) {
-             if (restaurant.findAvailableTables().size() < restaurant.tables.size()) {
+             if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
                 System.out.print("Did a customer leave? Enter table number (0 for none): ");
                 int leaving = readInt();
-                if (leaving >= 1 && leaving <= restaurant.tables.size()
-                        && !restaurant.tables.get(leaving - 1).isAvailable()) {
-                    restaurant.tables.get(leaving - 1).releaseTable();
+                if (leaving >= 1 && leaving <= restaurant.getTables().size()
+                        && !restaurant.getTables().get(leaving - 1).isAvailable()) {
+                    restaurant.getTables().get(leaving - 1).releaseTable();
                     System.out.println("Table " + leaving + " is now available.");
                 }
             }
@@ -68,9 +68,9 @@ public class main {
             while (table == null) {
                 System.out.print("Choose a table: ");
                 tableChoice = readInt();
-                if (tableChoice >= 1 && tableChoice <= restaurant.tables.size()
-                        && restaurant.tables.get(tableChoice - 1).isAvailable()) {
-                    table = restaurant.tables.get(tableChoice - 1);
+                if (tableChoice >= 1 && tableChoice <= restaurant.getTables().size()
+                        && restaurant.getTables().get(tableChoice - 1).isAvailable()) {
+                    table = restaurant.getTables().get(tableChoice - 1);
                 } else {
                     System.out.println("Choose an available table number.");
                 }
@@ -79,10 +79,10 @@ public class main {
             Customer customer = new Customer(scanner.nextLine());
 
             Server server = restaurant.assignServer(table);
-            System.out.println("Server " + server.name + " approaches the table.");
+            System.out.println("Server " + server.getName() + " approaches the table.");
             System.out.println(server.greetCustomer(customer));
             restaurant.seatCustomer(customer, table);
-            System.out.println(customer.name + " has been seated at Table " + tableChoice + ".");
+            System.out.println(customer.getName() + " has been seated at Table " + tableChoice + ".");
 
             Order order = new Order(String.valueOf(orderNumber++), customer, server);
             customer.placeOrder(order);
@@ -94,8 +94,8 @@ public class main {
                 while (item == null) {
                     System.out.print("Choose an item: ");
                     int itemChoice = readInt();
-                    if (itemChoice >= 1 && itemChoice <= restaurant.menuItems.size()) {
-                        item = restaurant.menuItems.get(itemChoice - 1);
+                    if (itemChoice >= 1 && itemChoice <= restaurant.getMenuItems().size()) {
+                        item = restaurant.getMenuItems().get(itemChoice - 1);
                     }
                 }
                 System.out.print("Quantity: ");
@@ -112,7 +112,7 @@ public class main {
 
             System.out.println("Order #" + order.getId() + " created!");
             System.out.println("Table: " + tableChoice);
-            System.out.println("Server: " + server.name);
+            System.out.println("Server: " + server.getName());
             System.out.println(order.getOrderSummary());
             System.out.println(server.submitOrder(order));
 
