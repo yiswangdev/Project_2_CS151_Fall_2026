@@ -1,5 +1,6 @@
 package classes;
 
+// created by Maria
 public class Table {
     private final int tableNumber;
     private boolean isOccupied;
