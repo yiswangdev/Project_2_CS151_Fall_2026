@@ -1,5 +1,7 @@
 package Interface;
 
+import classes.Order;
+
 public interface Orderhandler {
 
 
