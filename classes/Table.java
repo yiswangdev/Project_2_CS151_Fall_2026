@@ -1,10 +1,11 @@
 package classes;
 
+// created by Maria
 public class Table {
     private final int tableNumber;
     private boolean isOccupied;
     private Customer customer;
-
+ 
     /**
      * Creates an empty, unoccupied table.
      *
@@ -25,10 +26,10 @@ public class Table {
      */
     public void seatCustomer(Customer customer) {
         if (customer == null) {
-            throw new IllegalArgumentException("Customer cannot be null.");
+            throw new IllegalArgumentException("Customer cannot be null");
         }
         if (!isAvailable()) {
-            throw new IllegalStateException("Table " + tableNumber + " is already occupied.");
+            throw new IllegalStateException("Table " + tableNumber + " is already occupied");
         }
         this.customer = customer;
         this.isOccupied = true;
@@ -63,8 +64,8 @@ public class Table {
      */
     public String getTableInfo() {
         if (isAvailable()) {
-            return "Table " + tableNumber + ": Available";
+            return "Table " + tableNumber + ": Occupied by " + customer;
         }
-        return "Table " + tableNumber + ": Occupied by " + customer;
+        return "";
     }
 }
