@@ -64,5 +64,4 @@ public class Order {
         }
         return summary + "Total: $" + String.format("%.2f", calculateTotal());
     }
-    
 }

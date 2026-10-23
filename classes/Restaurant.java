@@ -49,5 +49,4 @@ public class Restaurant {
         table.seatCustomer(customer);
         customer.sitAtTable(table);
     }
-
 }
