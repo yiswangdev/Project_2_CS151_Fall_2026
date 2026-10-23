@@ -7,6 +7,9 @@ public class main {
     private Restaurant restaurant;
     private Scanner scanner;
     private int orderNumber = 101;
+
+    private static final int MAXIMUM_INSTANCES = 100;
+
     public main() {
         restaurant = new Restaurant();
         scanner = new Scanner(System.in);
@@ -73,8 +76,7 @@ public class main {
                 }
             }
             System.out.print("Enter customer name: ");
-            Customer customer = new Customer();
-            customer.name = scanner.nextLine();
+            Customer customer = new Customer(scanner.nextLine());
 
             Server server = restaurant.assignServer(table);
             System.out.println("Server " + server.name + " approaches the table.");

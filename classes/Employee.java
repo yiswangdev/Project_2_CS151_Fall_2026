@@ -12,14 +12,18 @@ package classes;
  * Bartender, etc.
  */
 abstract class Employee {
-    String name, employeeID;
-    boolean isBusy, isOnShift;
+    private String name, employeeID;
+    private boolean isBusy = false; 
+    private boolean isOnShift = false;
+    private static int employeeCounter = 0;
+
 
     Employee(String name, String employeeID) {
         this.name = name;
         this.employeeID = employeeID;
         isBusy = false;
         isOnShift = true;
+        employeeCounter++;
     }
 
     void assignTask(){

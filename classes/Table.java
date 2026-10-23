@@ -5,6 +5,7 @@ public class Table {
     private final int tableNumber;
     private boolean isOccupied;
     private Customer customer;
+    private static int tableCounter = 0;
  
     /**
      * Creates an empty, unoccupied table.
@@ -15,6 +16,7 @@ public class Table {
         this.tableNumber = tableNumber;
         this.isOccupied = false;
         this.customer = null;
+        tableCounter++;
     }
 
     /**

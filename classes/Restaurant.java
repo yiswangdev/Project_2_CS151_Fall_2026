@@ -4,9 +4,17 @@ import java.util.ArrayList;
 
 //Created By: Eric Wang
 public class Restaurant {
-    ArrayList<Table> tables = new ArrayList<>();
-    ArrayList<Employee> employees = new ArrayList<>();
-    ArrayList<MenuItem> menuItems = new ArrayList<>();
+    private ArrayList<Table> tables;
+    private ArrayList<Employee> employees;
+    private ArrayList<MenuItem> menuItems;
+    private static int resturantCounter = 0;
+
+    Restaurant(){
+        tables = new ArrayList<>();
+        employees = new ArrayList<>();
+        menuItems = new ArrayList<>();
+        resturantCounter++;
+    }
 
     public ArrayList<Table> findAvailableTables() {
         ArrayList<Table> availableTables = new ArrayList<>();

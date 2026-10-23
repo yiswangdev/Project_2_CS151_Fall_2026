@@ -6,10 +6,12 @@ import java.util.ArrayList;
 public class Cook extends Employee implements Orderhandler {
 
     private ArrayList<Order> currentOrders;
+    private static int cookCounter = 0;
 
     public Cook(String name, String employeeID) {
         super(name, employeeID);
         currentOrders = new ArrayList<>();
+        cookCounter++;
     }
     
     public boolean canHandleOrder(Order order) {

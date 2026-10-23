@@ -7,11 +7,13 @@ public class Server extends Employee implements Orderhandler {
     private final String greeting;
     private final ArrayList<Table> assignedTables;
     private Order activeOrder;
+    private static int serverCounter = 0;
 
     public Server(String name, String employeeID, String greeting) {
         super(name, employeeID);
         this.greeting = greeting;
         this.assignedTables = new ArrayList<>();
+        serverCounter++;
     }
 
     public String greetCustomer(Customer customer) {
