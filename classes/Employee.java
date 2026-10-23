@@ -3,11 +3,13 @@ import Interface.Orderhandler;
 
 abstract class Employee implements Orderhandler {
     String name, employeeID;
-    Boolean isBusy, isOnShift;
+    boolean isBusy, isOnShift;
 
     Employee(String name, String employeeID) {
         this.name = name;
         this.employeeID = employeeID;
+        isBusy = false;
+        isOnShift = true;
     }
 
     void assignTask(){
@@ -20,13 +22,8 @@ abstract class Employee implements Orderhandler {
         isBusy = false;
     }
 
-    Boolean isAvailableForWork(){
-        if (!isBusy && isOnShift) {
-            return true;
-        } else {
-            return false;
-        }
-
+    boolean isAvailableForWork(){
+        return !isBusy && isOnShift;
     }
 
     

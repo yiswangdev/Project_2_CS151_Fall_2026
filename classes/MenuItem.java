@@ -2,19 +2,33 @@ package classes;
 
 // created by Maria
 public class MenuItem {
+    private final String id;
     private final String name;
     private double price;
     private String description;
     private int availableQuantity;
 
     public MenuItem(String name, double price, String description, int availableQuantity) {
+        this(null, name, price, description, availableQuantity);
+    }
+
+    public MenuItem(String id, String name, double price, String description, int availableQuantity) {
         if (availableQuantity < 0) {
             throw new IllegalArgumentException("Available quantity cannot be negative.");
         }
+        this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.availableQuantity = availableQuantity;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**
@@ -38,6 +52,20 @@ public class MenuItem {
             throw new IllegalArgumentException("Quantity must be at least 1.");
         }
         return quantity <= availableQuantity;
+    }
+
+    public void fulfillOrder(int quantity) {
+        if (!canFulfillOrder(quantity)) {
+            throw new IllegalArgumentException("Not enough servings available.");
+        }
+        availableQuantity -= quantity;
+    }
+
+    public double priceFor(int quantity) {
+        if (quantity < 1) {
+            throw new IllegalArgumentException("Quantity must be at least 1.");
+        }
+        return price * quantity;
     }
 
     /**

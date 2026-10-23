@@ -19,28 +19,35 @@ public class Restaurant {
     }
 
     public Server assignServer(Table table) {
+        if (table == null || !table.isAvailable()) {
+            throw new IllegalArgumentException("An available table is required.");
+        }
         for (Employee employee : employees) {
             if (employee instanceof Server server && employee.isAvailableForWork()) {
                 return server;
             }
         }
-        return null; // No available server
+        throw new IllegalStateException("No server is available.");
     }
 
     public Cook assignCook(Order order) {
-        for (Object employee : employees) {
+        if (order == null) {
+            throw new IllegalArgumentException("Order cannot be null.");
+        }
+        for (Employee employee : employees) {
             if (employee instanceof Cook cook && cook.isAvailableForWork()) {
                 return cook;
             }
         }
-        return null; // No available cook
+        throw new IllegalStateException("No cook is available.");
     }
 
     public void seatCustomer(Customer customer, Table table) {
-        if (table != null && table.isAvailable()) {
-            table.seatCustomer(customer);
-            customer.sitAtTable(table);
+        if (customer == null || table == null) {
+            throw new IllegalArgumentException("Customer and table are required.");
         }
+        table.seatCustomer(customer);
+        customer.sitAtTable(table);
     }
 
 }
