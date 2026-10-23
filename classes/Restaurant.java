@@ -42,5 +42,4 @@ public class Restaurant {
             customer.sitAtTable(table);
         }
     }
-
 }

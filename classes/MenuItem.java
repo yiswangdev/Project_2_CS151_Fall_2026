@@ -1,5 +1,6 @@
 package classes;
 
+// created by Maria
 public class MenuItem {
     private final String name;
     private double price;

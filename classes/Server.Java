@@ -4,7 +4,7 @@ import Interface.Orderhandler;
 import java.util.ArrayList;
 
 // created by Maria
-public class Server extends Employee implements OrderHandler {
+public class Server extends Employee {
   private String greeting;
   private ArrayList<Table> assignedTables;
 
@@ -66,60 +66,5 @@ public class Server extends Employee implements OrderHandler {
       throw new IllegalArgumentException("Order cannot be null");
     }
     return "Order " + order.getId() + " is ready!";
-  }
-
-  /**
-   * Checks whether this server can take the order.
-   *
-   * @param order the order to check
-   * @return {@code true} if the order is not null and the server is available
-   */
-  @Override
-  public boolean canHandleOrder(Order order) {
-    return order != null && isAvailableForWork();
-  }
-
-  /**
-   * Accepts the order and marks this server as busy.
-   *
-   * @param order the order to accept
-   * @throws IllegalArgumentException if this server cannot handle the order
-   */
-  @Override
-  public void acceptOrder(Order order) {
-    if (!canHandleOrder(order)) {
-      throw new IllegalArgumentException("This order is not assigned to " + name);
-    }
-    assignTask();
-  }
-
-
-  
-   /**
-   * Sends the order to the kitchen.
-   *
-   * @param order the order to send
-   * @throws IllegalArgumentException if this server cannot handle the order
-   */
-  @Override
-  public void updateOrderStatus(Order order) {
-    if (!canHandleOrder(order)) {
-      throw new IllegalArgumentException("This order is not assigned to " + name);
-    }
-    System.out.println("Order " + order.getId() + " sent to the kitchen.");
-  }
-
-   /**
-   * Finishes this server's part of the order and frees the server.
-   *
-   * @param order the completed order
-   * @throws IllegalArgumentException if this server cannot handle the order
-   */
-  @Override
-  public void finishOrder(Order order) {
-  if (!canHandleOrder(order)) {
-    throw new IllegalArgumentException("This order is not assigned to " + name);
-  }
-  completeTask();
   }
 }
