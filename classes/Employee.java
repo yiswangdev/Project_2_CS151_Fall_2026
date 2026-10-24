@@ -26,8 +26,10 @@ abstract class Employee implements Orderhandler {
         } else {
             return false;
         }
-
     }
 
-    
+    @Override
+    public String toString() {
+        return name + " (ID: " + employeeID + ")";
+    }
 }

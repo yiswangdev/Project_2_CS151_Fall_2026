@@ -64,4 +64,9 @@ public class Order {
         }
         return summary + "Total: $" + String.format("%.2f", calculateTotal());
     }
+
+    @Override
+    public String toString() {
+        return "Order " + id + " [" + status + "] - " + items.size() + " item(s), Total: $" + String.format("%.2f", calculateTotal());
+    }
 }

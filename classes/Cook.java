@@ -57,4 +57,9 @@ public class Cook extends Employee implements Orderhandler {
             System.out.println("Your item has been customized: " + item.getDescription());
         }
     }
+
+    @Override
+    public String toString() {
+        return "Cook " + super.toString() + ", orders in progress: " + currentOrders.size();
+    }
 }

@@ -3,6 +3,7 @@ package classes;
 import Interface.Orderhandler;
 import java.util.ArrayList;
 
+//created by: Maria 
 public class Server extends Employee implements Orderhandler {
     private final String greeting;
     private final ArrayList<Table> assignedTables;
@@ -79,5 +80,10 @@ public class Server extends Employee implements Orderhandler {
         order.updateStatus("DELIVERED");
         activeOrder = null;
         completeTask();
+    }
+
+    @Override
+    public String toString() {
+        return "Server " + super.toString() + ", tables: " + assignedTables.size();
     }
 }

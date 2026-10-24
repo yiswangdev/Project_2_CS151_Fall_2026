@@ -42,4 +42,9 @@ public class Restaurant {
             customer.sitAtTable(table);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Restaurant: " + tables.size() + " tables, " + employees.size() + " employees, " + menuItems.size() + " menu items";
+    }
 }
