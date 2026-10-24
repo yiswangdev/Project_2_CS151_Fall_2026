@@ -2,7 +2,6 @@ package classes;
 
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
-import exceptions.QuantityUnavailableException;
 import utils.ScannerHelper;
 
 // Created by: Eric Wang
@@ -166,42 +165,6 @@ public class main {
                 System.out.println("Instance limit reached: " + e.getMessage());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                order = null;
-            }
-            customer.placeOrder(order);
-            server.acceptOrder(order);
-            String another = "y";
-            while (another.equalsIgnoreCase("y")) {
-                displayMenu();
-                MenuItem item = null;
-                while (item == null) {
-                    System.out.print("Choose an item out of the ones above: ");
-                    int itemChoice = readInt();
-                    if (itemChoice >= 1 && itemChoice <= restaurant.getMenuItems().size()) {
-                        item = restaurant.getMenuItems().get(itemChoice - 1);
-                    }
-                }
-                System.out.print("Quantity: ");
-                int quantity = readInt();
-
-
-                //if (quantity > 0 && item.canFulfillOrder(quantity)) {
-
-                try {
-                    item.checkQuantity();
-                    customer.requestAdditionalItem(item, quantity);
-                    System.out.println("Added " + quantity);
-                } catch (QuantityUnavailableException e) {
-                    System.out.println("Quantity unavailable: " + e.getMessage());
-                } catch (InstanceLimitException e) {
-                    System.out.println("Instance limit reached: " + e.getMessage());
-                } catch (DuplicateObjectException e) {
-                    System.out.println("Duplicate object: " + e.getMessage());
-                } 
-
-
-                System.out.print("Choose another item? (y/n): ");
-                another = ScannerHelper.getInput().trim();
             }
             System.out.println("Added " + quantity + " x " + item.getName() + ".");
         } else {
