@@ -1,18 +1,13 @@
 package classes;
-
-import java.util.Scanner;
-
 import exceptions.InstanceLimitException;
+import utils.ScannerHelper;
 
 //Created by: Eric Wang
 public class main {
     private Restaurant restaurant;
-    private Scanner scanner;
     //private int orderNumber = 101;
 
     public main() {
-
-        scanner = new Scanner(System.in);
 
         restaurant = new Restaurant();
 
@@ -45,7 +40,7 @@ public class main {
     private int readInt() {
         while (true) {
             try {
-                return Integer.parseInt(scanner.nextLine().trim());
+                return Integer.parseInt(ScannerHelper.getInput().trim());
             } catch (NumberFormatException e) {
                 System.out.print("Enter a number: ");
             }
@@ -83,7 +78,7 @@ public class main {
                 }
             }
             System.out.print("Enter customer name: ");
-            Customer customer = new Customer(scanner.nextLine());
+            Customer customer = new Customer(ScannerHelper.getInput());
 
             Server server = restaurant.assignServer(table);
             System.out.println("Server " + server.getName() + " approaches the table.");
@@ -114,7 +109,7 @@ public class main {
                     System.out.println("Sorry, we can't make that quantity.");
                 }
                 System.out.print("Choose another item? (y/n): ");
-                another = scanner.nextLine().trim();
+                another = ScannerHelper.getInput().trim();
             }
 
             System.out.println("Order #" + order.getId() + " created!");
@@ -128,15 +123,13 @@ public class main {
             cook.finishOrder(order);
             System.out.println(server.deliverOrder(order) + "table " + tableChoice + ".");
             System.out.print("Is the customer leaving? (y/n): ");
-            if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
+            if (ScannerHelper.getInput().trim().equalsIgnoreCase("y")) {
                 customer.leaveRestaurant();
             }
 
             System.out.print("Seat another customer? (y/n): ");
-            nextCustomer = scanner.nextLine().trim();
+            nextCustomer = ScannerHelper.getInput().trim();
         }
-        scanner.close();
-
     }
 
     public static void main(String[] args) {
