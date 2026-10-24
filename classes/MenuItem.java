@@ -5,6 +5,7 @@ import java.util.Set;
 
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
+import exceptions.QuantityUnavailableException;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
@@ -48,8 +49,10 @@ public class MenuItem {
         return name;
     }
 
-    public boolean isAvailable() {
-        return availableQuantity > 0;
+    public void checkQuantity() throws QuantityUnavailableException {
+        if (availableQuantity <= 0 || !canFulfillOrder(availableQuantity)) {
+            throw new QuantityUnavailableException("Sorry, we can't make that many " + getName());
+        }
     }
 
     public boolean canFulfillOrder(int quantity) {
