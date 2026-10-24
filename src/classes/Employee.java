@@ -1,4 +1,4 @@
-package classes;
+package src.classes;
 
 /**
  * Represents an Employee inside of a resturant.

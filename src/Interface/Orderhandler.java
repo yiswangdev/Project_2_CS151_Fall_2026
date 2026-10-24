@@ -1,6 +1,6 @@
-package Interface;
+package src.Interface;
 
-import classes.Order;
+import src.classes.Order;
 
 // Created by: Isaac
 public interface Orderhandler {

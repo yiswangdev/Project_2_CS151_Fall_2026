@@ -1,13 +1,13 @@
-package classes;
+package src.classes;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import exceptions.DuplicateObjectException;
-import exceptions.InstanceLimitException;
-import exceptions.QuantityUnavailableException;
-import utils.ClassInstanceLimit;
-import utils.DuplicateInstancesCheck;
+import src.exceptions.DuplicateObjectException;
+import src.exceptions.InstanceLimitException;
+import src.exceptions.QuantityUnavailableException;
+import src.utils.ClassInstanceLimit;
+import src.utils.DuplicateInstancesCheck;
 
 // Created by: Margarita
 public class OrderItem {
@@ -46,7 +46,7 @@ public class OrderItem {
 
         } catch (QuantityUnavailableException e) {
             System.out.println(e.getMessage());
-            
+
         }
 
         // fallback method to get price

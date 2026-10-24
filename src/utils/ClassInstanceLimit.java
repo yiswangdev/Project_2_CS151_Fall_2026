@@ -1,7 +1,8 @@
-package utils;
+package src.utils;
 
-import exceptions.InstanceLimitException;
 import java.util.*;
+
+import src.exceptions.InstanceLimitException;
 
 public class ClassInstanceLimit {
 

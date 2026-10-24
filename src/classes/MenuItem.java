@@ -1,11 +1,11 @@
-package classes;
+package src.classes;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import exceptions.*;
-import utils.ClassInstanceLimit;
-import utils.DuplicateInstancesCheck;
+import src.exceptions.*;
+import src.utils.ClassInstanceLimit;
+import src.utils.DuplicateInstancesCheck;
 
 // Created by: Maria
 public class MenuItem {

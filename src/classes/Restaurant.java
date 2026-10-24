@@ -1,12 +1,12 @@
-package classes;
+package src.classes;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import exceptions.*;
-import utils.ClassInstanceLimit;
-import utils.DuplicateInstancesCheck;
+import src.exceptions.*;
+import src.utils.ClassInstanceLimit;
+import src.utils.DuplicateInstancesCheck;
 
 //Created By: Eric Wang
 public class Restaurant {
@@ -15,7 +15,7 @@ public class Restaurant {
     private ArrayList<MenuItem> menuItems;
     private static final HashSet<Object> instances = new HashSet<>();
 
-    Restaurant() throws DuplicateObjectException, InstanceLimitException{
+    public Restaurant() throws DuplicateObjectException, InstanceLimitException{
         ClassInstanceLimit.checkLimit(instances, "Restaurant");
         tables = new ArrayList<>();
         employees = new ArrayList<>();

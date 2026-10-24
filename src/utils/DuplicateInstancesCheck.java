@@ -1,8 +1,8 @@
-package utils;
+package src.utils;
 import java.util.*;
 
-import classes.Cook;
-import exceptions.DuplicateObjectException;
+import src.classes.Cook;
+import src.exceptions.DuplicateObjectException;
 
 public class DuplicateInstancesCheck {
     public static void checkForDuplicate(HashSet<Object> instances, Object toCheck, String className) throws DuplicateObjectException{

@@ -1,12 +1,12 @@
-package classes;
+package src.classes;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import exceptions.DuplicateObjectException;
-import exceptions.InstanceLimitException;
-import utils.ClassInstanceLimit;
-import utils.DuplicateInstancesCheck;
+import src.exceptions.DuplicateObjectException;
+import src.exceptions.InstanceLimitException;
+import src.utils.ClassInstanceLimit;
+import src.utils.DuplicateInstancesCheck;
 
 // Created by: Maria
 public class Table {

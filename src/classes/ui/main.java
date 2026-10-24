@@ -1,9 +1,8 @@
-package classes;
+package src.classes.ui;
 
-import exceptions.DuplicateObjectException;
-import exceptions.InstanceLimitException;
-import exceptions.QuantityUnavailableException;
-import utils.ScannerHelper;
+import src.classes.*;
+import src.exceptions.*;
+import src.utils.ScannerHelper;
 
 // Created by: Eric Wang
 public class main {

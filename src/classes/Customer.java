@@ -1,13 +1,13 @@
-package classes;
+package src.classes;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import exceptions.DuplicateObjectException;
-import exceptions.InstanceLimitException;
-import exceptions.QuantityUnavailableException;
-import utils.ClassInstanceLimit;
-import utils.DuplicateInstancesCheck;
+import src.exceptions.DuplicateObjectException;
+import src.exceptions.InstanceLimitException;
+import src.exceptions.QuantityUnavailableException;
+import src.utils.ClassInstanceLimit;
+import src.utils.DuplicateInstancesCheck;
 
 // Created by: Eric Wang
 public class Customer {
@@ -17,7 +17,7 @@ public class Customer {
     private Order order;
     private static final HashSet<Object> instances = new HashSet<>();
 
-    Customer(String name) throws DuplicateObjectException, InstanceLimitException{
+    public Customer(String name) throws DuplicateObjectException, InstanceLimitException{
         ClassInstanceLimit.checkLimit(instances, "Customer");
         this.name = name;
         DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "Customer");
