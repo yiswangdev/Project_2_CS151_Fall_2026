@@ -14,11 +14,7 @@ public class main {
 
         scanner = new Scanner(System.in);
 
-        try {
-            restaurant = new Restaurant();
-        } catch (InstanceLimitException e) {
-            System.out.println("error");
-        }
+        restaurant = new Restaurant();
 
         for (int i = 1; i <= 4; i++) {
             restaurant.addTable(new Table(i));
@@ -55,6 +51,7 @@ public class main {
         }
     }
     public void run() {
+        
         String nextCustomer = "y";
         while (nextCustomer.equalsIgnoreCase("y")) {
              if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
@@ -137,6 +134,7 @@ public class main {
             nextCustomer = scanner.nextLine().trim();
         }
         scanner.close();
+
     }
 
     public static void main(String[] args) {
