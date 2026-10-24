@@ -41,6 +41,7 @@ public class main {
             System.out.println((i + 1) + ". " + restaurant.getMenuItems().get(i).formatMenuDisplay());
         }
     }
+
     private int readInt() {
         while (true) {
             try {
@@ -50,11 +51,12 @@ public class main {
             }
         }
     }
+
     public void run() {
-        
+
         String nextCustomer = "y";
         while (nextCustomer.equalsIgnoreCase("y")) {
-             if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
+            if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
                 System.out.print("Did a customer leave? Enter table number (0 for none): ");
                 int leaving = readInt();
                 if (leaving >= 1 && leaving <= restaurant.getTables().size()
@@ -66,7 +68,7 @@ public class main {
             if (restaurant.findAvailableTables().isEmpty()) {
                 System.out.println("All tables are full.");
                 break;
-                }        
+            }
             displayTables();
             Table table = null;
             int tableChoice = 0;
@@ -120,7 +122,7 @@ public class main {
             System.out.println("Server: " + server.getName());
             System.out.println(order.getOrderSummary());
             System.out.println(server.submitOrder(order));
-            
+
             Cook cook = restaurant.assignCook(order);
             cook.prepareOrder(order);
             cook.finishPreparation(order);

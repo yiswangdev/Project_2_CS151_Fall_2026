@@ -32,7 +32,7 @@ public class Cook extends Employee implements Orderhandler {
             throw new InstanceLimitException("Too many cooks created! - " + instances.size());
         }
     }
-    
+
     public boolean canHandleOrder(Order order) {
         return order != null && isAvailableForWork();
     }
@@ -60,12 +60,13 @@ public class Cook extends Employee implements Orderhandler {
             order.updateStatus("READY");
             currentOrders.remove(order);
             completeTask();
-            System.out.println("Order " + order.getId() + " is ready to be picked up by " + order.getServer().getName() + ".");
+            System.out.println(
+                    "Order " + order.getId() + " is ready to be picked up by " + order.getServer().getName() + ".");
         }
     }
 
     public void prepareOrder(Order order) {
-        if (canHandleOrder(order)){
+        if (canHandleOrder(order)) {
             acceptOrder(order);
             updateOrderStatus(order);
             System.out.println("Cook " + getName() + " is preparing order " + order.getId() + ".");
@@ -73,9 +74,14 @@ public class Cook extends Employee implements Orderhandler {
     }
 
     public void addSpecialCharacteristic(OrderItem item, String characteristic) {
-        if (item != null && characteristic != null && !characteristic.isBlank()){
+        if (item != null && characteristic != null && !characteristic.isBlank()) {
             item.addCharacteristic(characteristic);
             System.out.println("Your item has been customized: " + item.getDescription());
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Cook " + super.toString() + ", orders in progress: " + currentOrders.size();
     }
 }

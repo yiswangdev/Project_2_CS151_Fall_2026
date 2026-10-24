@@ -94,4 +94,9 @@ public class Server extends Employee implements Orderhandler {
         activeOrder = null;
         completeTask();
     }
+
+    @Override
+    public String toString() {
+        return "Server " + super.toString() + ", tables: " + assignedTables.size();
+    }
 }

@@ -13,7 +13,7 @@ package classes;
  */
 abstract class Employee {
     private String name, employeeID;
-    private boolean isBusy = false; 
+    private boolean isBusy = false;
     private boolean isOnShift = false;
     //private static int employeeCounter = 0; abstract classes can't be instantiated
 
@@ -34,19 +34,22 @@ abstract class Employee {
         return employeeID;
     }
 
-    void assignTask(){
-        //some other logic
+    void assignTask() {
+        // some other logic
         isBusy = true;
     }
 
-    void completeTask(){
-        //finish some task/order
+    void completeTask() {
+        // finish some task/order
         isBusy = false;
     }
 
-    boolean isAvailableForWork(){
+    boolean isAvailableForWork() {
         return !isBusy && isOnShift;
     }
 
-    
+    @Override
+    public String toString() {
+        return name + " (ID: " + employeeID + ")";
+    }
 }

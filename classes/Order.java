@@ -38,18 +38,20 @@ public class Order {
         }
     }
 
-    public String getId() { return id; }
+    public String getId() {
+        return id;
+    }
 
     public String getStatus() {
-        return status; 
+        return status;
     }
 
     public Server getServer() {
-        return server; 
+        return server;
     }
 
     public Cook getCook() {
-        return cook; 
+        return cook;
     }
 
     public void updateStatus(String newStatus) {
@@ -82,5 +84,10 @@ public class Order {
             summary += item + "\n";
         }
         return summary + "Total: $" + String.format("%.2f", calculateTotal());
+    }
+
+    @Override
+    public String toString() {
+        return "Order " + id + " [" + status + "] - " + items.size() + " item(s), Total: $" + String.format("%.2f", calculateTotal());
     }
 }

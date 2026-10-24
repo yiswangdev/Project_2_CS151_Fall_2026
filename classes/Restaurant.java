@@ -54,7 +54,6 @@ public class Restaurant {
         return menuItems;
     }
 
-
     public ArrayList<Table> findAvailableTables() {
         ArrayList<Table> availableTables = new ArrayList<>();
         for (Table table : tables) {
@@ -95,5 +94,10 @@ public class Restaurant {
         }
         table.seatCustomer(customer);
         customer.sitAtTable(table);
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant: " + tables.size() + " tables, " + employees.size() + " employees, " + menuItems.size() + " menu items";
     }
 }
