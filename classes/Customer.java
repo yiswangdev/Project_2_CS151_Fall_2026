@@ -6,13 +6,11 @@ public class Customer {
     private String name;
     private Table table;
     private Order order;
-    private static int customerCounter = 0;
 
     Customer(String name) {
         this.name = name;
         table = null;
         order = null;
-        customerCounter++;
     }
 
     public String getName() {

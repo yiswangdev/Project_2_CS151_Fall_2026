@@ -1,6 +1,8 @@
 package classes;
 
-//created by Maria
+import utils.ClassInstanceLimit;
+
+// created by Maria
 public class Table {
     private final int tableNumber;
     private boolean isOccupied;
@@ -11,7 +13,6 @@ public class Table {
         this.tableNumber = tableNumber;
         this.isOccupied = false;
         this.customer = null;
-        tableCounter++;
     }
 
     public void seatCustomer(Customer customer) {

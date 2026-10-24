@@ -7,12 +7,9 @@ public class MenuItem {
     private double price;
     private String description;
     private int availableQuantity;
-    private static int menuItemCounter = 0;
-
 
     public MenuItem(String name, double price, String description, int availableQuantity) {
         this(null, name, price, description, availableQuantity);
-        menuItemCounter++;
     }
 
     public MenuItem(String id, String name, double price, String description, int availableQuantity) {
@@ -24,7 +21,6 @@ public class MenuItem {
         this.price = price;
         this.description = description;
         this.availableQuantity = availableQuantity;
-        menuItemCounter++;
     }
 
     public String getId() {
@@ -46,11 +42,25 @@ public class MenuItem {
         return quantity <= availableQuantity;
     }
 
+    public void fulfillOrder(int quantity) {
+        if (!canFulfillOrder(quantity)) {
+            throw new IllegalArgumentException("Not enough servings available.");
+        }
+        availableQuantity -= quantity;
+    }
+
+    public double priceFor(int quantity) {
+        if (quantity < 1) {
+            throw new IllegalArgumentException("Quantity must be at least 1.");
+        }
+        return price * quantity;
+    }
+
     public String formatMenuDisplay() {
         return String.format("%s - $%.2f: %s", name, price, description);
     }
 
-    @Override 
+    @Override
     public String toString() {
         return name + " - $" + String.format("%.2f", price);
     }

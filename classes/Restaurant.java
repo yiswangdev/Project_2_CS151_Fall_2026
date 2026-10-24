@@ -7,13 +7,11 @@ public class Restaurant {
     private ArrayList<Table> tables;
     private ArrayList<Employee> employees;
     private ArrayList<MenuItem> menuItems;
-    private static int resturantCounter = 0;
 
-    Restaurant(){
+    Restaurant() {
         tables = new ArrayList<>();
         employees = new ArrayList<>();
         menuItems = new ArrayList<>();
-        resturantCounter++;
     }
 
     public void addTable(Table table) {
@@ -39,7 +37,6 @@ public class Restaurant {
     public ArrayList<MenuItem> getMenuItems() {
         return menuItems;
     }
-
 
     public ArrayList<Table> findAvailableTables() {
         ArrayList<Table> availableTables = new ArrayList<>();

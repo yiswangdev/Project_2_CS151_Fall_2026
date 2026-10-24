@@ -8,15 +8,13 @@ import java.util.ArrayList;
 public class Cook extends Employee implements Orderhandler {
 
     private ArrayList<Order> currentOrders;
-    private static int cookCounter = 0;
 
     public Cook(String name, String employeeID) {
         super(name, employeeID);
         ClassInstanceLimit.checkLimit("Cook");
         currentOrders = new ArrayList<>();
-        cookCounter++;
     }
-    
+
     public boolean canHandleOrder(Order order) {
         return order != null && isAvailableForWork();
     }
@@ -44,12 +42,13 @@ public class Cook extends Employee implements Orderhandler {
             order.updateStatus("READY");
             currentOrders.remove(order);
             completeTask();
-            System.out.println("Order " + order.getId() + " is ready to be picked up by " + order.getServer().getName() + ".");
+            System.out.println(
+                    "Order " + order.getId() + " is ready to be picked up by " + order.getServer().getName() + ".");
         }
     }
 
     public void prepareOrder(Order order) {
-        if (canHandleOrder(order)){
+        if (canHandleOrder(order)) {
             acceptOrder(order);
             updateOrderStatus(order);
             System.out.println("Cook " + getName() + " is preparing order " + order.getId() + ".");
@@ -57,7 +56,7 @@ public class Cook extends Employee implements Orderhandler {
     }
 
     public void addSpecialCharacteristic(OrderItem item, String characteristic) {
-        if (item != null && characteristic != null && !characteristic.isBlank()){
+        if (item != null && characteristic != null && !characteristic.isBlank()) {
             item.addCharacteristic(characteristic);
             System.out.println("Your item has been customized: " + item.getDescription());
         }

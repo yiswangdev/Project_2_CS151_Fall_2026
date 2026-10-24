@@ -1,7 +1,5 @@
 package classes;
 
-import utils.ScannerHelper;
-
 import java.util.Scanner;
 
 import exceptions.InstanceLimitException;
@@ -9,10 +7,12 @@ import exceptions.InstanceLimitException;
 //Created by: Eric Wang
 public class main {
     private Restaurant restaurant;
-    private ScannerHelper scanner;
+    private Scanner scanner;
     private int orderNumber = 101;
 
     public main() {
+
+        scanner = new Scanner(System.in);
 
         restaurant = new Restaurant();
 
@@ -41,20 +41,22 @@ public class main {
             System.out.println((i + 1) + ". " + restaurant.getMenuItems().get(i).formatMenuDisplay());
         }
     }
+
     private int readInt() {
         while (true) {
             try {
-                return Integer.parseInt(ScannerHelper.getInput().trim());
+                return Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.print("Enter a number: ");
             }
         }
     }
+
     public void run() {
-        
+
         String nextCustomer = "y";
         while (nextCustomer.equalsIgnoreCase("y")) {
-             if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
+            if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
                 System.out.print("Did a customer leave? Enter table number (0 for none): ");
                 int leaving = readInt();
                 if (leaving >= 1 && leaving <= restaurant.getTables().size()
@@ -66,7 +68,7 @@ public class main {
             if (restaurant.findAvailableTables().isEmpty()) {
                 System.out.println("All tables are full.");
                 break;
-                }        
+            }
             displayTables();
             Table table = null;
             int tableChoice = 0;
@@ -81,7 +83,7 @@ public class main {
                 }
             }
             System.out.print("Enter customer name: ");
-            Customer customer = new Customer(ScannerHelper.getInput());
+            Customer customer = new Customer(scanner.nextLine());
 
             Server server = restaurant.assignServer(table);
             System.out.println("Server " + server.getName() + " approaches the table.");
@@ -112,7 +114,7 @@ public class main {
                     System.out.println("Sorry, we can't make that quantity.");
                 }
                 System.out.print("Choose another item? (y/n): ");
-                another = ScannerHelper.getInput().trim();
+                another = scanner.nextLine().trim();
             }
 
             System.out.println("Order #" + order.getId() + " created!");
@@ -120,20 +122,20 @@ public class main {
             System.out.println("Server: " + server.getName());
             System.out.println(order.getOrderSummary());
             System.out.println(server.submitOrder(order));
-            
+
             Cook cook = restaurant.assignCook(order);
             cook.prepareOrder(order);
             cook.finishPreparation(order);
             System.out.println(server.deliverOrder(order) + "table " + tableChoice + ".");
             System.out.print("Is the customer leaving? (y/n): ");
-            if (ScannerHelper.getInput().trim().equalsIgnoreCase("y")) {
+            if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
                 customer.leaveRestaurant();
             }
 
             System.out.print("Seat another customer? (y/n): ");
-            nextCustomer = ScannerHelper.getInput().trim();
+            nextCustomer = scanner.nextLine().trim();
         }
-        //scanner.close();
+        scanner.close();
 
     }
 
