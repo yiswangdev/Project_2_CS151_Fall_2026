@@ -15,12 +15,15 @@ abstract class Employee {
     private String name, employeeID;
     private boolean isBusy = false;
     private boolean isOnShift = false;
+    //private static int employeeCounter = 0; abstract classes can't be instantiated
+
 
     Employee(String name, String employeeID) {
         this.name = name;
         this.employeeID = employeeID;
         isBusy = false;
         isOnShift = true;
+        //employeeCounter++;
     }
 
     public String getName() {

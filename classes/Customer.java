@@ -1,16 +1,34 @@
 package classes;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import exceptions.DuplicateObjectException;
+import exceptions.InstanceLimitException;
+
 //Created by: Eric Wang
 public class Customer {
     
     private String name;
     private Table table;
     private Order order;
+    //private static int customerCounter = 0;
+    private static final Set<Customer> instances = new HashSet<>();
 
-    Customer(String name) {
+    Customer(String name) throws Exception{
         this.name = name;
         table = null;
         order = null;
+        //customerCounter++;
+        for (Customer customer : instances) {
+            if (customer.getName().equals(name) && customer.table == table && customer.order == null) {
+                throw new DuplicateObjectException("Duplicate customer: " + name);
+            }
+        }
+        instances.add(this);
+        if(instances.size() > 100){
+            throw new InstanceLimitException("Too many customers created! - " + instances.size());
+        }
     }
 
     public String getName() {
@@ -31,7 +49,7 @@ public class Customer {
         this.order = order;
     }
 
-    public void requestAdditionalItem(MenuItem item, int quantity) {
+    public void requestAdditionalItem(MenuItem item, int quantity) throws Exception{
         if (order == null) {
             System.out.println("Place an order before requesting another item.");
             return;

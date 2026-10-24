@@ -8,7 +8,7 @@ import exceptions.InstanceLimitException;
 public class main {
     private Restaurant restaurant;
     private Scanner scanner;
-    private int orderNumber = 101;
+    //private int orderNumber = 101;
 
     public main() {
 
@@ -91,7 +91,7 @@ public class main {
             restaurant.seatCustomer(customer, table);
             System.out.println(customer.getName() + " has been seated at Table " + tableChoice + ".");
 
-            Order order = new Order(String.valueOf(orderNumber++), customer, server);
+            Order order = new Order(customer, server);
             customer.placeOrder(order);
             server.acceptOrder(order);
             String another = "y";
