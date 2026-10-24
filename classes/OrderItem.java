@@ -6,11 +6,19 @@ public class OrderItem {
     private MenuItem menuItem;
     private int quantity;
     private ArrayList<String> characteristics;
+    private static int orderItemCounter = 0;
 
     public OrderItem(MenuItem menuItem, int quantity) {
+        if (menuItem == null) {
+            throw new IllegalArgumentException("Menu item cannot be null.");
+        }
+        if (quantity < 1) {
+            throw new IllegalArgumentException("Quantity must be at least 1.");
+        }
         this.menuItem = menuItem;
         this.quantity = quantity;
         this.characteristics = new ArrayList<>();
+        orderItemCounter++;
     }
 
     public void addCharacteristic(String characteristic) {

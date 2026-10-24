@@ -4,9 +4,42 @@ import java.util.ArrayList;
 
 //Created By: Eric Wang
 public class Restaurant {
-    ArrayList<Table> tables = new ArrayList<>();
-    ArrayList<Employee> employees = new ArrayList<>();
-    ArrayList<MenuItem> menuItems = new ArrayList<>();
+    private ArrayList<Table> tables;
+    private ArrayList<Employee> employees;
+    private ArrayList<MenuItem> menuItems;
+    private static int resturantCounter = 0;
+
+    Restaurant(){
+        tables = new ArrayList<>();
+        employees = new ArrayList<>();
+        menuItems = new ArrayList<>();
+        resturantCounter++;
+    }
+
+    public void addTable(Table table) {
+        tables.add(table);
+    }
+
+    public void addEmployee(Employee employee) {
+        employees.add(employee);
+    }
+
+    public void addMenuItem(MenuItem menuItem) {
+        menuItems.add(menuItem);
+    }
+
+    public ArrayList<Table> getTables() {
+        return tables;
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    public ArrayList<MenuItem> getMenuItems() {
+        return menuItems;
+    }
+
 
     public ArrayList<Table> findAvailableTables() {
         ArrayList<Table> availableTables = new ArrayList<>();
@@ -19,28 +52,35 @@ public class Restaurant {
     }
 
     public Server assignServer(Table table) {
+        if (table == null || !table.isAvailable()) {
+            throw new IllegalArgumentException("An available table is required.");
+        }
         for (Employee employee : employees) {
             if (employee instanceof Server server && employee.isAvailableForWork()) {
                 return server;
             }
         }
-        return null; // No available server
+        throw new IllegalStateException("No server is available.");
     }
 
     public Cook assignCook(Order order) {
-        for (Object employee : employees) {
+        if (order == null) {
+            throw new IllegalArgumentException("Order cannot be null.");
+        }
+        for (Employee employee : employees) {
             if (employee instanceof Cook cook && cook.isAvailableForWork()) {
                 return cook;
             }
         }
-        return null; // No available cook
+        throw new IllegalStateException("No cook is available.");
     }
 
     public void seatCustomer(Customer customer, Table table) {
-        if (table != null && table.isAvailable()) {
-            table.seatCustomer(customer);
-            customer.sitAtTable(table);
+        if (customer == null || table == null) {
+            throw new IllegalArgumentException("Customer and table are required.");
         }
+        table.seatCustomer(customer);
+        customer.sitAtTable(table);
     }
 
     @Override

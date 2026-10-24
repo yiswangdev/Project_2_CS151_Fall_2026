@@ -7,9 +7,11 @@ public class Table {
     private Customer customer;
 
     public Table(int tableNumber) {
+        ClassInstanceLimit.checkLimit("Cook");
         this.tableNumber = tableNumber;
         this.isOccupied = false;
         this.customer = null;
+        tableCounter++;
     }
 
     public void seatCustomer(Customer customer) {
@@ -37,9 +39,9 @@ public class Table {
 
     public String getTableInfo() {
         if (isAvailable()) {
-            return "Table " + tableNumber + ": Occupied by " + customer;
+            return "Table " + tableNumber + ": Available";
         }
-        return "";
+        return "Table " + tableNumber + ": Occupied by " + customer.getName();
     }
 
     @Override
