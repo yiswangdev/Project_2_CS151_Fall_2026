@@ -7,9 +7,7 @@ public class main {
     private Restaurant restaurant;
     private Scanner scanner;
     private int orderNumber = 101;
-
-    private static final int MAXIMUM_INSTANCES = 100;
-
+    
     public main() {
         restaurant = new Restaurant();
         scanner = new Scanner(System.in);
