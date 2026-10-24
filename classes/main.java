@@ -125,7 +125,7 @@ public class main {
 
             Cook cook = restaurant.assignCook(order);
             cook.prepareOrder(order);
-            cook.finishPreparation(order);
+            cook.finishOrder(order);
             System.out.println(server.deliverOrder(order) + "table " + tableChoice + ".");
             System.out.print("Is the customer leaving? (y/n): ");
             if (scanner.nextLine().trim().equalsIgnoreCase("y")) {

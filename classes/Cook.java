@@ -34,10 +34,6 @@ public class Cook extends Employee implements Orderhandler {
     }
 
     public void finishOrder(Order order) {
-        finishPreparation(order);
-    }
-
-    public void finishPreparation(Order order) {
         if (currentOrders.contains(order)) {
             order.updateStatus("READY");
             currentOrders.remove(order);
