@@ -2,7 +2,6 @@ package src.classes;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 import src.exceptions.DuplicateObjectException;
 import src.exceptions.InstanceLimitException;
@@ -85,7 +84,7 @@ public class Order {
         return this.toString() + "Total: $" + String.format("%.2f", calculateTotal());
     }
 
-    ArrayList<OrderItem> getOrders() {
+    public ArrayList<OrderItem> getOrders() {
         return items;
     }
 

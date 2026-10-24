@@ -1,7 +1,5 @@
 package src.utils;
 import java.util.*;
-
-import src.classes.Cook;
 import src.exceptions.DuplicateObjectException;
 
 public class DuplicateInstancesCheck {

@@ -1,7 +1,6 @@
 package src.classes;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import src.exceptions.*;
 import src.utils.ClassInstanceLimit;

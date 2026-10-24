@@ -1,5 +1,4 @@
 package src.utils;
-
 import java.util.Scanner;
 
 public class ScannerHelper {
