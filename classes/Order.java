@@ -11,12 +11,16 @@ public class Order {
     private Cook cook;
     private String note;
     private String status = "DRAFT";
+    private static int orderCounter = 0;
+
+
     public Order(String id, Customer customer, Server server) {
         this.id = id;
         this.customer = customer;
         this.server = server;
         this.note = "";
         items = new ArrayList<>();
+        orderCounter++;
     }
 
     public String getId() { return id; }

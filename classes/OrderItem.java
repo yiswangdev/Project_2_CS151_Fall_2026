@@ -6,6 +6,7 @@ public class OrderItem {
     private MenuItem menuItem;
     private int quantity;
     private ArrayList<String> characteristics;
+    private static int orderItemCounter = 0;
 
     public OrderItem(MenuItem menuItem, int quantity) {
         if (menuItem == null) {
@@ -17,6 +18,7 @@ public class OrderItem {
         this.menuItem = menuItem;
         this.quantity = quantity;
         this.characteristics = new ArrayList<>();
+        orderItemCounter++;
     }
 
     public void addCharacteristic(String characteristic) {

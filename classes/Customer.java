@@ -2,9 +2,22 @@ package classes;
 
 //Created by: Eric Wang
 public class Customer {
-    String name;
-    Table table;
-    Order order;
+    
+    private String name;
+    private Table table;
+    private Order order;
+    private static int customerCounter = 0;
+
+    Customer(String name) {
+        this.name = name;
+        table = null;
+        order = null;
+        customerCounter++;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public void sitAtTable(Table table) {
         if (table == null) {

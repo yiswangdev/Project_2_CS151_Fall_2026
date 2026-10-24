@@ -1,10 +1,13 @@
 package classes;
 
+import utils.ClassInstanceLimit;
+
 // created by Maria
 public class Table {
     private final int tableNumber;
     private boolean isOccupied;
     private Customer customer;
+    private static int tableCounter = 0;
  
     /**
      * Creates an empty, unoccupied table.
@@ -12,9 +15,11 @@ public class Table {
      * @param tableNumber the number identifying this table
      */
     public Table(int tableNumber) {
+        ClassInstanceLimit.checkLimit("Cook");
         this.tableNumber = tableNumber;
         this.isOccupied = false;
         this.customer = null;
+        tableCounter++;
     }
 
     /**
@@ -66,6 +71,6 @@ public class Table {
         if (isAvailable()) {
             return "Table " + tableNumber + ": Available";
         }
-        return "Table " + tableNumber + ": Occupied by " + customer.name;
+        return "Table " + tableNumber + ": Occupied by " + customer.getName();
     }
 }

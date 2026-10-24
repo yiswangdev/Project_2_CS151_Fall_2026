@@ -4,9 +4,42 @@ import java.util.ArrayList;
 
 //Created By: Eric Wang
 public class Restaurant {
-    ArrayList<Table> tables = new ArrayList<>();
-    ArrayList<Employee> employees = new ArrayList<>();
-    ArrayList<MenuItem> menuItems = new ArrayList<>();
+    private ArrayList<Table> tables;
+    private ArrayList<Employee> employees;
+    private ArrayList<MenuItem> menuItems;
+    private static int resturantCounter = 0;
+
+    Restaurant(){
+        tables = new ArrayList<>();
+        employees = new ArrayList<>();
+        menuItems = new ArrayList<>();
+        resturantCounter++;
+    }
+
+    public void addTable(Table table) {
+        tables.add(table);
+    }
+
+    public void addEmployee(Employee employee) {
+        employees.add(employee);
+    }
+
+    public void addMenuItem(MenuItem menuItem) {
+        menuItems.add(menuItem);
+    }
+
+    public ArrayList<Table> getTables() {
+        return tables;
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    public ArrayList<MenuItem> getMenuItems() {
+        return menuItems;
+    }
+
 
     public ArrayList<Table> findAvailableTables() {
         ArrayList<Table> availableTables = new ArrayList<>();
