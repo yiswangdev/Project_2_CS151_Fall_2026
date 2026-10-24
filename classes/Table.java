@@ -6,28 +6,32 @@ import java.util.Set;
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
 import utils.ClassInstanceLimit;
+import utils.DuplicateInstancesCheck;
 
 // Created by: Maria
 public class Table {
     private final int tableNumber;
     private boolean isOccupied;
     private Customer customer;
-    private static final Set<Table> instances = new HashSet<>();
-
-    public Table(int tableNumber) throws DuplicateObjectException, InstanceLimitException {
-        ClassInstanceLimit.checkLimit("Cook");
+    private static final HashSet<Object> instances = new HashSet<>();
+ 
+    /**
+     * Creates an empty, unoccupied table.
+     *
+     * @param tableNumber the number identifying this table
+     */
+    public Table(int tableNumber) throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "Table");
         this.tableNumber = tableNumber;
         this.isOccupied = false;
-        this.customer = null;
-        for (Table table : instances) {
-            if (table.tableNumber == tableNumber) {
-                throw new DuplicateObjectException("Duplicate Table - " + tableNumber);
-            }
-        }
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "Table");
         instances.add(this);
-        if (instances.size() > 100) {
-            throw new InstanceLimitException("Too many order items created! - " + instances.size());
-        }
+    }
+
+    @Override
+    public boolean equals(Object other){
+        Table otherTable = (Table) other;
+        return otherTable.tableNumber == tableNumber && otherTable.isOccupied == isOccupied && otherTable.customer.equals(customer);
     }
 
     public void seatCustomer(Customer customer) {

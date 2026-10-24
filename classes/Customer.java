@@ -5,6 +5,8 @@ import java.util.Set;
 
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
+import utils.ClassInstanceLimit;
+import utils.DuplicateInstancesCheck;
 
 // Created by: Eric Wang
 public class Customer {
@@ -12,21 +14,19 @@ public class Customer {
     private String name;
     private Table table;
     private Order order;
-    private static final Set<Customer> instances = new HashSet<>();
+    private static final HashSet<Object> instances = new HashSet<>();
 
-    Customer(String name) throws DuplicateObjectException, InstanceLimitException {
+    Customer(String name) throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "Customer");
         this.name = name;
-        table = null;
-        order = null;
-        for (Customer customer : instances) {
-            if (customer.getName().equals(name) && customer.table == table && customer.order == null) {
-                throw new DuplicateObjectException("Duplicate customer: " + name);
-            }
-        }
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "Customer");
         instances.add(this);
-        if (instances.size() > 100) {
-            throw new InstanceLimitException("Too many customers created! - " + instances.size());
-        }
+    }
+
+    @Override 
+    public boolean equals(Object other){
+        Customer otherCustomer = (Customer) other;
+        return otherCustomer.getName().equals(name) && otherCustomer.table == table && otherCustomer.order == order;
     }
 
     public String getName() {
