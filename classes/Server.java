@@ -12,7 +12,7 @@ public class Server extends Employee implements Orderhandler {
     //private static int serverCounter = 0;
     private static final Set<Server> instances = new HashSet<>();
 
-    public Server(String name, String employeeID, String greeting) throws Exception{
+    public Server(String name, String employeeID, String greeting) throws DuplicateObjectException, InstanceLimitException{
         super(name, employeeID);
         this.greeting = greeting;
         this.assignedTables = new ArrayList<>();

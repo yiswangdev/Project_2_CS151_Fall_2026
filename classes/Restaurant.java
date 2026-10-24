@@ -14,7 +14,7 @@ public class Restaurant {
     //private static int resturantCounter = 0;
     private static final Set<Restaurant> instances = new HashSet<>();
 
-    Restaurant() throws Exception{
+    Restaurant() throws DuplicateObjectException, InstanceLimitException{
         tables = new ArrayList<>();
         employees = new ArrayList<>();
         menuItems = new ArrayList<>();

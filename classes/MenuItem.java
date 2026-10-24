@@ -18,12 +18,12 @@ public class MenuItem {
     private static final Set<MenuItem> instances = new HashSet<>();
 
 
-    public MenuItem(String name, double price, String description, int availableQuantity) throws Exception{
+    public MenuItem(String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException{
         this(null, name, price, description, availableQuantity);
         //menuItemCounter++;
     }
 
-    public MenuItem(String id, String name, double price, String description, int availableQuantity) throws Exception {
+    public MenuItem(String id, String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException{
         if (availableQuantity < 0) {
             throw new IllegalArgumentException("Available quantity cannot be negative.");
         }

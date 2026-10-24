@@ -15,7 +15,7 @@ public class Customer {
     //private static int customerCounter = 0;
     private static final Set<Customer> instances = new HashSet<>();
 
-    Customer(String name) throws Exception{
+    Customer(String name) throws DuplicateObjectException, InstanceLimitException{
         this.name = name;
         table = null;
         order = null;
@@ -50,7 +50,7 @@ public class Customer {
         order.setCustomer(this);
     }
 
-    public void requestAdditionalItem(MenuItem item, int quantity) throws Exception{
+    public void requestAdditionalItem(MenuItem item, int quantity) throws IllegalArgumentException, DuplicateObjectException, InstanceLimitException{
         if (order == null) {
             System.out.println("Place an order before requesting another item.");
             return;

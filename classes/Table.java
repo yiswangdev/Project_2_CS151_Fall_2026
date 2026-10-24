@@ -20,7 +20,7 @@ public class Table {
      *
      * @param tableNumber the number identifying this table
      */
-    public Table(int tableNumber) throws Exception{
+    public Table(int tableNumber) throws DuplicateObjectException, InstanceLimitException{
         ClassInstanceLimit.checkLimit("Cook");
         this.tableNumber = tableNumber;
         this.isOccupied = false;
@@ -65,6 +65,10 @@ public class Table {
             return "Table " + tableNumber + ": Available";
         }
         return "Table " + tableNumber + ": Occupied by " + customer.getName();
+    }
+
+    public int getTableNumber(){
+        return tableNumber;
     }
 
     @Override

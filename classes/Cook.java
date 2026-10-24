@@ -17,7 +17,7 @@ public class Cook extends Employee implements Orderhandler {
     //private static int cookCounter = 0;
     private static final Set<Cook> instances = new HashSet<>();
 
-    public Cook(String name, String employeeID) throws Exception{
+    public Cook(String name, String employeeID) throws DuplicateObjectException, InstanceLimitException{
         super(name, employeeID);
         ClassInstanceLimit.checkLimit("Cook");
         currentOrders = new ArrayList<>();

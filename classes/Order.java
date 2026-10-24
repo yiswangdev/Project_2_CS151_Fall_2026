@@ -20,7 +20,7 @@ public class Order {
     private static final Set<Order> instances = new HashSet<>();
 
 
-    public Order(/*String id,*/ Customer customer, Server server) throws Exception{
+    public Order(/*String id,*/ Customer customer, Server server) throws DuplicateObjectException, InstanceLimitException{
         this.id = "" + instances.size()+1;
         this.customer = customer;
         this.server = server;
