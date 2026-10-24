@@ -3,8 +3,7 @@ package classes;
 import java.util.HashSet;
 import java.util.Set;
 
-import exceptions.DuplicateObjectException;
-import exceptions.InstanceLimitException;
+import exceptions.*;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
@@ -19,11 +18,11 @@ public class MenuItem {
     private static final HashSet<Object> instances = new HashSet<>();
 
     public MenuItem(String name, double price, String description, int availableQuantity)
-            throws DuplicateObjectException, InstanceLimitException {
+            throws DuplicateObjectException, InstanceLimitException, QuantityUnavailableException {
         this(null, name, price, description, availableQuantity);
     }
 
-    public MenuItem(String id, String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException{
+    public MenuItem(String id, String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException, QuantityUnavailableException {
         ClassInstanceLimit.checkLimit(instances, "MenuItem");
         this.id = id;
         this.name = name;
@@ -48,27 +47,31 @@ public class MenuItem {
         return name;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
     public boolean isAvailable() {
         return availableQuantity > 0;
     }
 
     public boolean canFulfillOrder(int quantity) {
         if (quantity < 1) {
-            throw new IllegalArgumentException("Quantity must be at least 1.");
+            throw new QuantityUnavailableException("Quantity must be at least 1.");
         }
         return quantity <= availableQuantity;
     }
 
     public void fulfillOrder(int quantity) {
         if (!canFulfillOrder(quantity)) {
-            throw new IllegalArgumentException("Not enough servings available.");
+            throw new QuantityUnavailableException("Not enough servings available. We only have " + availableQuantity + "x left.");
         }
         availableQuantity -= quantity;
     }
 
     public double priceFor(int quantity) {
         if (quantity < 1) {
-            throw new IllegalArgumentException("Quantity must be at least 1.");
+            throw new QuantityUnavailableException("Quantity must be at least 1.");
         }
         return price * quantity;
     }

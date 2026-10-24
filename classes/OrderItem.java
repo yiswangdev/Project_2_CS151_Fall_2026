@@ -5,6 +5,7 @@ import java.util.Set;
 
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
+import exceptions.QuantityUnavailableException;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
@@ -40,7 +41,17 @@ public class OrderItem {
     }
 
     public double calculateSubtotal() {
-        return menuItem.priceFor(quantity);
+        try {
+            return menuItem.priceFor(quantity);
+
+        } catch (QuantityUnavailableException e) {
+            System.out.println(e.getMessage());
+            
+        }
+
+        // fallback method to get price
+        return menuItem.getPrice() * quantity;
+        
     }
 
     public String getDescription() {

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
+import exceptions.QuantityUnavailableException;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
@@ -49,7 +50,7 @@ public class Customer {
     }
 
     public void requestAdditionalItem(MenuItem item, int quantity)
-            throws IllegalArgumentException, DuplicateObjectException, InstanceLimitException {
+            throws IllegalArgumentException, DuplicateObjectException, InstanceLimitException, QuantityUnavailableException {
         if (order == null) {
             System.out.println("Place an order before requesting another item.");
             return;
