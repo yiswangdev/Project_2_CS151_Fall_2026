@@ -3,8 +3,7 @@ package classes;
 import java.util.HashSet;
 import java.util.Set;
 
-import exceptions.DuplicateObjectException;
-import exceptions.InstanceLimitException;
+import exceptions.*;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
@@ -19,11 +18,11 @@ public class MenuItem {
     private static final HashSet<Object> instances = new HashSet<>();
 
     public MenuItem(String name, double price, String description, int availableQuantity)
-            throws DuplicateObjectException, InstanceLimitException {
+            throws DuplicateObjectException, InstanceLimitException, QuantityUnavailableException {
         this(null, name, price, description, availableQuantity);
     }
 
-    public MenuItem(String id, String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException{
+    public MenuItem(String id, String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException, QuantityUnavailableException {
         ClassInstanceLimit.checkLimit(instances, "MenuItem");
         this.id = id;
         this.name = name;
@@ -61,7 +60,7 @@ public class MenuItem {
 
     public void fulfillOrder(int quantity) {
         if (!canFulfillOrder(quantity)) {
-            throw new IllegalArgumentException("Not enough servings available.");
+            throw new QuantityUnavailableException("Not enough servings available.");
         }
         availableQuantity -= quantity;
     }

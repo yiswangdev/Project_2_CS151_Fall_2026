@@ -2,6 +2,7 @@ package classes;
 
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
+import exceptions.QuantityUnavailableException;
 import utils.ScannerHelper;
 
 // Created by: Eric Wang
@@ -156,20 +157,25 @@ public class main {
     }
 
     private void addItemToOrder(Customer customer, MenuItem item, int quantity) {
-        if (quantity > 0 && item.canFulfillOrder(quantity)) {
-            try {
-                customer.requestAdditionalItem(item, quantity);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Duplicate object: " + e.getMessage());
-            } catch (InstanceLimitException e) {
-                System.out.println("Instance limit reached: " + e.getMessage());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+
+        try {
+            if (quantity <= 0 && !item.canFulfillOrder(quantity)) {
+                throw new QuantityUnavailableException("Sorry, we can't make that quantity.");
             }
+
+            customer.requestAdditionalItem(item, quantity);
             System.out.println("Added " + quantity + " x " + item.getName() + ".");
-        } else {
-            System.out.println("Sorry, we can't make that quantity.");
+
+        } catch (DuplicateObjectException e) {
+            System.out.println("Duplicate object: " + e.getMessage());
+
+        } catch (InstanceLimitException e) {
+            System.out.println("Instance limit reached: " + e.getMessage());
+
+        } catch (QuantityUnavailableException e) {
+            System.out.println(e.getMessage());
         }
+            
     }
 
     private void submitOrder(Order order, Server server, int tableChoice) {
