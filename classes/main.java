@@ -1,6 +1,7 @@
 package classes;
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
+import exceptions.QuantityUnavailableException;
 import utils.ScannerHelper;
 
 //Created by: Eric Wang
@@ -132,20 +133,23 @@ public class main {
                 }
                 System.out.print("Quantity: ");
                 int quantity = readInt();
-                if (quantity > 0 && item.canFulfillOrder(quantity)) {
-                    try{
-                        customer.requestAdditionalItem(item, quantity);
-                    }catch (IllegalArgumentException e) {
-                        System.out.println("Duplicate object: " + e.getMessage());
-                    } catch (InstanceLimitException e) {
-                        System.out.println("Instance limit reached: " + e.getMessage());
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                    System.out.println("Added " + quantity + " x " + item.getName() + ".");
-                } else {
-                    System.out.println("Sorry, we can't make that quantity.");
-                }
+
+
+                //if (quantity > 0 && item.canFulfillOrder(quantity)) {
+
+                try {
+                    item.checkQuantity();
+                    customer.requestAdditionalItem(item, quantity);
+                    System.out.println("Added " + quantity);
+                } catch (QuantityUnavailableException e) {
+                    System.out.println("Quantity unavailable: " + e.getMessage());
+                } catch (InstanceLimitException e) {
+                    System.out.println("Instance limit reached: " + e.getMessage());
+                } catch (DuplicateObjectException e) {
+                    System.out.println("Duplicate object: " + e.getMessage());
+                } 
+
+
                 System.out.print("Choose another item? (y/n): ");
                 another = ScannerHelper.getInput().trim();
             }
