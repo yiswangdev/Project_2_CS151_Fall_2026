@@ -47,7 +47,7 @@ public class Server extends Employee implements Orderhandler {
 
     public String deliverOrder(Order order) {
         finishOrder(order);
-        return "Order " + order.getId() + " is ready!";
+        return "Order " + order.getId() + " was delivered to ";
     }
 
     @Override

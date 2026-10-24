@@ -41,7 +41,7 @@ public class Cook extends Employee implements Orderhandler {
             order.updateStatus("READY");
             currentOrders.remove(order);
             completeTask();
-            System.out.println("Your order is ready for pickup.");
+            System.out.println("Order " + order.getId() + " is ready to be picked up by " + order.getServer().getName() + ".");
         }
     }
 
@@ -49,7 +49,7 @@ public class Cook extends Employee implements Orderhandler {
         if (canHandleOrder(order)){
             acceptOrder(order);
             updateOrderStatus(order);
-            System.out.println(getName() + " is preparing your order...");
+            System.out.println("Cook " + getName() + " is preparing order " + order.getId() + ".");
         }
     }
 
