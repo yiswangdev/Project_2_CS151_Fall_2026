@@ -1,19 +1,33 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import exceptions.*;
 
 //Created By: Eric Wang
 public class Restaurant {
     private ArrayList<Table> tables;
     private ArrayList<Employee> employees;
     private ArrayList<MenuItem> menuItems;
-    private static int resturantCounter = 0;
+    //private static int resturantCounter = 0;
+    private static final Set<Restaurant> instances = new HashSet<>();
 
-    Restaurant(){
+    Restaurant() throws Exception{
         tables = new ArrayList<>();
         employees = new ArrayList<>();
         menuItems = new ArrayList<>();
-        resturantCounter++;
+        //resturantCounter++;
+        for (Restaurant restaurant : instances) {
+            if (restaurant.getTables().equals(tables) && restaurant.getEmployees().equals(employees) && restaurant.getMenuItems().equals(menuItems)) {
+                throw new DuplicateObjectException("Duplicate restaurant");
+            }
+        }
+        instances.add(this);
+        if(instances.size() > 100){
+            throw new InstanceLimitException("Too many order items created! - " + instances.size());
+        }
     }
 
     public void addTable(Table table) {

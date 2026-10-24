@@ -15,7 +15,7 @@ abstract class Employee {
     private String name, employeeID;
     private boolean isBusy = false; 
     private boolean isOnShift = false;
-    private static int employeeCounter = 0;
+    //private static int employeeCounter = 0; abstract classes can't be instantiated
 
 
     Employee(String name, String employeeID) {
@@ -23,7 +23,7 @@ abstract class Employee {
         this.employeeID = employeeID;
         isBusy = false;
         isOnShift = true;
-        employeeCounter++;
+        //employeeCounter++;
     }
 
     public String getName() {

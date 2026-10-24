@@ -1,20 +1,36 @@
 package classes;
 
 import Interface.Orderhandler;
+import exceptions.DuplicateObjectException;
+import exceptions.InstanceLimitException;
 import utils.ClassInstanceLimit;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.management.InstanceAlreadyExistsException;
 
 public class Cook extends Employee implements Orderhandler {
 
     private ArrayList<Order> currentOrders;
-    private static int cookCounter = 0;
+    //private static int cookCounter = 0;
+    private static final Set<Cook> instances = new HashSet<>();
 
-    public Cook(String name, String employeeID) {
+    public Cook(String name, String employeeID) throws Exception{
         super(name, employeeID);
         ClassInstanceLimit.checkLimit("Cook");
         currentOrders = new ArrayList<>();
-        cookCounter++;
+        //cookCounter++;
+        for (Cook cook : instances) {
+            if (cook.getName().equals(name) && cook.getEmployeeID().equals(employeeID)) {
+                throw new DuplicateObjectException("Duplicate cook: " + employeeID);
+            }
+        }
+        instances.add(this);
+        if(instances.size() > 100){
+            throw new InstanceLimitException("Too many cooks created! - " + instances.size());
+        }
     }
     
     public boolean canHandleOrder(Order order) {
