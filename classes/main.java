@@ -58,109 +58,141 @@ public class main {
     public void run() {
         String nextCustomer = "y";
         while (nextCustomer.equalsIgnoreCase("y")) {
-
-            if (restaurant.findAvailableTables().isEmpty()) {
+            if (!hasAvailableTables()) {
                 System.out.println("All tables are full.");
                 break;
             }
-            displayTables();
-            Table table = null;
-            int tableChoice = 0;
-            while (table == null) {
-                System.out.print("Choose a table: ");
-                tableChoice = readInt();
-                if (tableChoice >= 1 && tableChoice <= restaurant.getTables().size()
-                        && restaurant.getTables().get(tableChoice - 1).isAvailable()) {
-                    table = restaurant.getTables().get(tableChoice - 1);
-                } else {
-                    System.out.println("Choose an available table number.");
-                }
-            }
-            System.out.print("Enter customer name: ");
-            Customer customer;
-            try {
-                customer = new Customer(ScannerHelper.getInput());
-            } catch (IllegalArgumentException e) {
-                System.out.println("Duplicate object: " + e.getMessage());
-                customer = null;
-            } catch (InstanceLimitException e) {
-                System.out.println("Instance limit reached: " + e.getMessage());
-                customer = null;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                customer = null;
-            }
 
-            Server server = restaurant.assignServer(table);
-            System.out.println("Server " + server.getName() + " approaches the table.");
-            System.out.println(server.greetCustomer(customer));
-            restaurant.seatCustomer(customer, table);
-            System.out.println(customer.getName() + " has been seated at Table " + tableChoice + ".");
-            Order order;
-            try {
-                order = new Order(customer, server);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Duplicate object: " + e.getMessage());
-                order = null;
-            } catch (InstanceLimitException e) {
-                System.out.println("Instance limit reached: " + e.getMessage());
-                order = null;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                order = null;
-            }
-            customer.placeOrder(order);
-            server.acceptOrder(order);
-            String another = "y";
-            while (another.equalsIgnoreCase("y")) {
-                displayMenu();
-                MenuItem item = null;
-                while (item == null) {
-                    System.out.print("Choose an item out of the ones above: ");
-                    int itemChoice = readInt();
-                    if (itemChoice >= 1 && itemChoice <= restaurant.getMenuItems().size()) {
-                        item = restaurant.getMenuItems().get(itemChoice - 1);
-                    }
-                }
-                System.out.print("Quantity: ");
-                int quantity = readInt();
-                if (quantity > 0 && item.canFulfillOrder(quantity)) {
-                    try {
-                        customer.requestAdditionalItem(item, quantity);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Duplicate object: " + e.getMessage());
-                    } catch (InstanceLimitException e) {
-                        System.out.println("Instance limit reached: " + e.getMessage());
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                    System.out.println("Added " + quantity + " x " + item.getName() + ".");
-                } else {
-                    System.out.println("Sorry, we can't make that quantity.");
-                }
-                System.out.print("Choose another item? (y/n): ");
-                another = ScannerHelper.getInput().trim();
-            }
-
-            System.out.println("Order #" + order.getId() + " created!");
-            System.out.println("Table: " + tableChoice);
-            System.out.println("Server: " + server.getName());
-            System.out.println(order.getOrderSummary());
-            System.out.println(server.submitOrder(order));
-
-            Cook cook = restaurant.assignCook(order);
-            cook.prepareOrder(order);
-            cook.finishOrder(order);
-            System.out.println(server.deliverOrder(order) + "table " + tableChoice + ".");
-            System.out.println("Here is your food:");
-            System.out.println(order);
-            System.out.print("Is the customer leaving? (y/n): ");
-            if (ScannerHelper.getInput().trim().equalsIgnoreCase("y")) {
-                customer.leaveRestaurant();
-            }
+            serveCustomer();
 
             System.out.print("Seat another customer? (y/n): ");
             nextCustomer = ScannerHelper.getInput().trim();
+        }
+    }
+
+    private boolean hasAvailableTables() {
+        return !restaurant.findAvailableTables().isEmpty();
+    }
+
+    private void serveCustomer() {
+        displayTables();
+        int tableChoice = chooseAvailableTable();
+        Table table = restaurant.getTables().get(tableChoice - 1);
+        Customer customer = createCustomer();
+        Server server = restaurant.assignServer(table);
+        System.out.println("Server " + server.getName() + " approaches the table.");
+        System.out.println(server.greetCustomer(customer));
+        restaurant.seatCustomer(customer, table);
+        System.out.println(customer.getName() + " has been seated at Table " + tableChoice + ".");
+        Order order = createOrder(customer, server);
+        customer.placeOrder(order);
+        server.acceptOrder(order);
+        takeOrderItems(customer);
+        submitOrder(order, server, tableChoice);
+        prepareAndDeliverOrder(order, server, tableChoice);
+        askCustomerToLeave(customer);
+    }
+
+    private int chooseAvailableTable() {
+        while (true) {
+            System.out.print("Choose a table: ");
+            int tableChoice = readInt();
+            if (tableChoice >= 1 && tableChoice <= restaurant.getTables().size()
+                    && restaurant.getTables().get(tableChoice - 1).isAvailable()) {
+                return tableChoice;
+            }
+            System.out.println("Choose an available table number.");
+        }
+    }
+
+    private Customer createCustomer() {
+        System.out.print("Enter customer name: ");
+        try {
+            return new Customer(ScannerHelper.getInput());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Duplicate object: " + e.getMessage());
+        } catch (InstanceLimitException e) {
+            System.out.println("Instance limit reached: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private Order createOrder(Customer customer, Server server) {
+        try {
+            return new Order(customer, server);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Duplicate object: " + e.getMessage());
+        } catch (InstanceLimitException e) {
+            System.out.println("Instance limit reached: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private void takeOrderItems(Customer customer) {
+        String another = "y";
+        while (another.equalsIgnoreCase("y")) {
+            displayMenu();
+            MenuItem item = chooseMenuItem();
+            System.out.print("Quantity: ");
+            int quantity = readInt();
+            addItemToOrder(customer, item, quantity);
+            System.out.print("Choose another item? (y/n): ");
+            another = ScannerHelper.getInput().trim();
+        }
+    }
+
+    private MenuItem chooseMenuItem() {
+        while (true) {
+            System.out.print("Choose an item out of the ones above: ");
+            int itemChoice = readInt();
+            if (itemChoice >= 1 && itemChoice <= restaurant.getMenuItems().size()) {
+                return restaurant.getMenuItems().get(itemChoice - 1);
+            }
+        }
+    }
+
+    private void addItemToOrder(Customer customer, MenuItem item, int quantity) {
+        if (quantity > 0 && item.canFulfillOrder(quantity)) {
+            try {
+                customer.requestAdditionalItem(item, quantity);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Duplicate object: " + e.getMessage());
+            } catch (InstanceLimitException e) {
+                System.out.println("Instance limit reached: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("Added " + quantity + " x " + item.getName() + ".");
+        } else {
+            System.out.println("Sorry, we can't make that quantity.");
+        }
+    }
+
+    private void submitOrder(Order order, Server server, int tableChoice) {
+        System.out.println("Order #" + order.getId() + " created!");
+        System.out.println("Table: " + tableChoice);
+        System.out.println("Server: " + server.getName());
+        System.out.println(order.getOrderSummary());
+        System.out.println(server.submitOrder(order));
+    }
+
+    private void prepareAndDeliverOrder(Order order, Server server, int tableChoice) {
+        Cook cook = restaurant.assignCook(order);
+        cook.prepareOrder(order);
+        cook.finishOrder(order);
+        System.out.println(server.deliverOrder(order) + "table " + tableChoice + ".");
+        System.out.println("Here is your food:");
+        System.out.println(order);
+    }
+
+    private void askCustomerToLeave(Customer customer) {
+        System.out.print("Is the customer leaving? (y/n): ");
+        if (ScannerHelper.getInput().trim().equalsIgnoreCase("y")) {
+            customer.leaveRestaurant();
         }
     }
 
