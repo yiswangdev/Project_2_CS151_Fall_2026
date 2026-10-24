@@ -7,6 +7,7 @@ import java.util.Set;
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
 
+// Created by: Isaac
 public class Order {
     public static final int MAX_QUANTITY_PER_ITEM = 20;
     private String id;
@@ -14,26 +15,21 @@ public class Order {
     private Server server;
     private ArrayList<OrderItem> items;
     private Cook cook;
-    //private String note;
     private String status = "DRAFT";
-    //private static int orderCounter = 0;
     private static final Set<Order> instances = new HashSet<>();
 
-
-    public Order(/*String id,*/ Customer customer, Server server) throws DuplicateObjectException, InstanceLimitException{
-        this.id = "" + instances.size()+1;
+    public Order(Customer customer, Server server) throws DuplicateObjectException, InstanceLimitException {
+        this.id = "" + instances.size() + 1;
         this.customer = customer;
         this.server = server;
-        //this.note = "";
         items = new ArrayList<>();
-        //orderCounter++;
         for (Order order : instances) {
             if (order.getId().equals(id) && order.customer.equals(customer) && order.getServer().equals(server)) {
                 throw new DuplicateObjectException("Duplicate order: " + id);
             }
         }
         instances.add(this);
-        if(instances.size() > 100){
+        if (instances.size() > 100) {
             throw new InstanceLimitException("Too many orders created! - " + instances.size());
         }
     }
@@ -86,7 +82,7 @@ public class Order {
         return this.toString() + "Total: $" + String.format("%.2f", calculateTotal());
     }
 
-    ArrayList<OrderItem> getOrders(){
+    ArrayList<OrderItem> getOrders() {
         return items;
     }
 

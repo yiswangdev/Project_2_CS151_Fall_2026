@@ -6,27 +6,25 @@ import java.util.Set;
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
 
-//Created by: Eric Wang
+// Created by: Eric Wang
 public class Customer {
-    
+
     private String name;
     private Table table;
     private Order order;
-    //private static int customerCounter = 0;
     private static final Set<Customer> instances = new HashSet<>();
 
-    Customer(String name) throws DuplicateObjectException, InstanceLimitException{
+    Customer(String name) throws DuplicateObjectException, InstanceLimitException {
         this.name = name;
         table = null;
         order = null;
-        //customerCounter++;
         for (Customer customer : instances) {
             if (customer.getName().equals(name) && customer.table == table && customer.order == null) {
                 throw new DuplicateObjectException("Duplicate customer: " + name);
             }
         }
         instances.add(this);
-        if(instances.size() > 100){
+        if (instances.size() > 100) {
             throw new InstanceLimitException("Too many customers created! - " + instances.size());
         }
     }
@@ -50,7 +48,8 @@ public class Customer {
         order.setCustomer(this);
     }
 
-    public void requestAdditionalItem(MenuItem item, int quantity) throws IllegalArgumentException, DuplicateObjectException, InstanceLimitException{
+    public void requestAdditionalItem(MenuItem item, int quantity)
+            throws IllegalArgumentException, DuplicateObjectException, InstanceLimitException {
         if (order == null) {
             System.out.println("Place an order before requesting another item.");
             return;

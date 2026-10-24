@@ -6,24 +6,23 @@ import java.util.Set;
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
 
-// created by Maria
+// Created by: Maria
 public class MenuItem {
     private final String id;
     private final String name;
     private double price;
     private String description;
     private int availableQuantity;
-    //private static int menuItemCounter = 0;
 
     private static final Set<MenuItem> instances = new HashSet<>();
 
-
-    public MenuItem(String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException{
+    public MenuItem(String name, double price, String description, int availableQuantity)
+            throws DuplicateObjectException, InstanceLimitException {
         this(null, name, price, description, availableQuantity);
-        //menuItemCounter++;
     }
 
-    public MenuItem(String id, String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException{
+    public MenuItem(String id, String name, double price, String description, int availableQuantity)
+            throws DuplicateObjectException, InstanceLimitException {
         if (availableQuantity < 0) {
             throw new IllegalArgumentException("Available quantity cannot be negative.");
         }
@@ -32,14 +31,14 @@ public class MenuItem {
         this.price = price;
         this.description = description;
         this.availableQuantity = availableQuantity;
-        //menuItemCounter++;
         for (MenuItem item : instances) {
-            if (item.name.equals(name) && Double.compare(item.price, price) == 0 && item.description.equals(description) && item.availableQuantity == availableQuantity) {
+            if (item.name.equals(name) && Double.compare(item.price, price) == 0 && item.description.equals(description)
+                    && item.availableQuantity == availableQuantity) {
                 throw new DuplicateObjectException("Duplicate menu item: " + name);
             }
         }
         instances.add(this);
-        if(instances.size() > 100){
+        if (instances.size() > 100) {
             throw new InstanceLimitException("Too many menu items created! - " + instances.size());
         }
     }

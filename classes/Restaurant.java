@@ -11,21 +11,20 @@ public class Restaurant {
     private ArrayList<Table> tables;
     private ArrayList<Employee> employees;
     private ArrayList<MenuItem> menuItems;
-    //private static int resturantCounter = 0;
     private static final Set<Restaurant> instances = new HashSet<>();
 
-    Restaurant() throws DuplicateObjectException, InstanceLimitException{
+    Restaurant() throws DuplicateObjectException, InstanceLimitException {
         tables = new ArrayList<>();
         employees = new ArrayList<>();
         menuItems = new ArrayList<>();
-        //resturantCounter++;
         for (Restaurant restaurant : instances) {
-            if (restaurant.getTables().equals(tables) && restaurant.getEmployees().equals(employees) && restaurant.getMenuItems().equals(menuItems)) {
+            if (restaurant.getTables().equals(tables) && restaurant.getEmployees().equals(employees)
+                    && restaurant.getMenuItems().equals(menuItems)) {
                 throw new DuplicateObjectException("Duplicate restaurant");
             }
         }
         instances.add(this);
-        if(instances.size() > 100){
+        if (instances.size() > 100) {
             throw new InstanceLimitException("Too many order items created! - " + instances.size());
         }
     }
@@ -98,6 +97,7 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return "Restaurant: " + tables.size() + " tables, " + employees.size() + " employees, " + menuItems.size() + " menu items";
+        return "Restaurant: " + tables.size() + " tables, " + employees.size() + " employees, " + menuItems.size()
+                + " menu items";
     }
 }
