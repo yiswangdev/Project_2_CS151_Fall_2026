@@ -3,7 +3,7 @@ package classes;
 import Interface.Orderhandler;
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
-import utils.ClassInstanceLimit;
+import utils.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,23 +15,14 @@ public class Cook extends Employee implements Orderhandler {
 
     private Order currentOrder;
     private String foodCharacteristic;
-    //private static int cookCounter = 0;
-    private static final Set<Cook> instances = new HashSet<>();
+    private static final HashSet<Object> instances = new HashSet<>();
 
     public Cook(String name, String employeeID, String characteristic) throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "Cook");
         super(name, employeeID);
         foodCharacteristic = characteristic;
-        ClassInstanceLimit.checkLimit("Cook");
-        //cookCounter++;
-        for (Cook cook : instances) {
-            if (cook.getName().equals(name) && cook.getEmployeeID().equals(employeeID)) {
-                throw new DuplicateObjectException("Duplicate cook: " + employeeID);
-            }
-        }
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "Cook");
         instances.add(this);
-        if(instances.size() > 100){
-            throw new InstanceLimitException("Too many cooks created! - " + instances.size());
-        }
     }
 
     public boolean canHandleOrder(Order order) {

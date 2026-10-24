@@ -6,7 +6,6 @@ import utils.ScannerHelper;
 //Created by: Eric Wang
 public class main {
     private Restaurant restaurant;
-    //private int orderNumber = 101;
 
     public main() {
         try{
@@ -67,7 +66,6 @@ public class main {
                     System.out.println("Table " + leaving + " is now available.");
                 }
             }*/
-           
             if (restaurant.findAvailableTables().isEmpty()) {
                 System.out.println("All tables are full.");
                 break;

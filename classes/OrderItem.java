@@ -6,15 +6,17 @@ import java.util.Set;
 
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
+import utils.ClassInstanceLimit;
+import utils.DuplicateInstancesCheck;
 
 public class OrderItem {
     private MenuItem menuItem;
     private int quantity;
     private String characteristic;
-    //private static int orderItemCounter = 0;
-    private static final Set<OrderItem> instances = new HashSet<>();
+    private static final HashSet<Object> instances = new HashSet<>();
 
     public OrderItem(MenuItem menuItem, int quantity) throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "OrderItem");
         if (menuItem == null) {
             throw new IllegalArgumentException("Menu item cannot be null.");
         }
@@ -23,17 +25,14 @@ public class OrderItem {
         }
         this.menuItem = menuItem;
         this.quantity = quantity;
-        //this.characteristics = new ArrayList<>();
-        //orderItemCounter++;
-        for (OrderItem orderItem : instances) {
-            if (orderItem.menuItem.equals(menuItem) && orderItem.quantity == quantity) {
-                throw new DuplicateObjectException("Duplicate order: " + quantity + " " + menuItem);
-            }
-        }
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "OrderItem");
         instances.add(this);
-        if(instances.size() > 100){
-            throw new InstanceLimitException("Too many order items created! - " + instances.size());
-        }
+    }
+
+    @Override 
+    public boolean equals(Object other){
+        OrderItem otherOrderItem = (OrderItem) other;
+        return otherOrderItem.menuItem.equals(menuItem) && otherOrderItem.quantity == quantity;
     }
 
     public void setCharacteristic(String characteristic) {
