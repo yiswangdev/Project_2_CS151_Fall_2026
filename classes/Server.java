@@ -3,28 +3,22 @@ package classes;
 import Interface.Orderhandler;
 import java.util.*;
 import exceptions.*;
+import utils.*;
 
 // Created by: Maria
 public class Server extends Employee implements Orderhandler {
     private final String greeting;
     private final ArrayList<Table> assignedTables;
     private Order activeOrder;
-    private static final Set<Server> instances = new HashSet<>();
+    private static final HashSet<Object> instances = new HashSet<>();
 
-    public Server(String name, String employeeID, String greeting)
-            throws DuplicateObjectException, InstanceLimitException {
+    public Server(String name, String employeeID, String greeting) throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "Server");
         super(name, employeeID);
         this.greeting = greeting;
         this.assignedTables = new ArrayList<>();
-        for (Server server : instances) {
-            if (server.getName().equals(name) && server.getEmployeeID().equals(employeeID)) {
-                throw new DuplicateObjectException("Duplicate server - " + employeeID);
-            }
-        }
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "Server");
         instances.add(this);
-        if (instances.size() > 100) {
-            throw new InstanceLimitException("Too many order items created! - " + instances.size());
-        }
     }
 
     public String greetCustomer(Customer customer) {

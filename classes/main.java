@@ -58,7 +58,16 @@ public class main {
     public void run() {
         String nextCustomer = "y";
         while (nextCustomer.equalsIgnoreCase("y")) {
-            if (!hasAvailableTables()) {
+            /*if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
+                System.out.print("Did a customer leave? Enter table number (0 for none): ");
+                int leaving = readInt();
+                if (leaving >= 1 && leaving <= restaurant.getTables().size()
+                        && !restaurant.getTables().get(leaving - 1).isAvailable()) {
+                    restaurant.getTables().get(leaving - 1).releaseTable();
+                    System.out.println("Table " + leaving + " is now available.");
+                }
+            }*/
+            if (restaurant.findAvailableTables().isEmpty()) {
                 System.out.println("All tables are full.");
                 break;
             }

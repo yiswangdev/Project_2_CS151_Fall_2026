@@ -5,6 +5,8 @@ import java.util.Set;
 
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
+import utils.ClassInstanceLimit;
+import utils.DuplicateInstancesCheck;
 
 // Created by: Maria
 public class MenuItem {
@@ -14,33 +16,28 @@ public class MenuItem {
     private String description;
     private int availableQuantity;
 
-    private static final Set<MenuItem> instances = new HashSet<>();
+    private static final HashSet<Object> instances = new HashSet<>();
 
     public MenuItem(String name, double price, String description, int availableQuantity)
             throws DuplicateObjectException, InstanceLimitException {
         this(null, name, price, description, availableQuantity);
     }
 
-    public MenuItem(String id, String name, double price, String description, int availableQuantity)
-            throws DuplicateObjectException, InstanceLimitException {
-        if (availableQuantity < 0) {
-            throw new IllegalArgumentException("Available quantity cannot be negative.");
-        }
+    public MenuItem(String id, String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "MenuItem");
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.availableQuantity = availableQuantity;
-        for (MenuItem item : instances) {
-            if (item.name.equals(name) && Double.compare(item.price, price) == 0 && item.description.equals(description)
-                    && item.availableQuantity == availableQuantity) {
-                throw new DuplicateObjectException("Duplicate menu item: " + name);
-            }
-        }
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "MenuItem");
         instances.add(this);
-        if (instances.size() > 100) {
-            throw new InstanceLimitException("Too many menu items created! - " + instances.size());
-        }
+    }
+
+    @Override 
+    public boolean equals(Object other){
+        MenuItem otherMenuItem = (MenuItem) other;
+        return otherMenuItem.name.equals(name) && Double.compare(otherMenuItem.price, price) == 0 && otherMenuItem.description.equals(description) && otherMenuItem.availableQuantity == availableQuantity;
     }
 
     public String getId() {

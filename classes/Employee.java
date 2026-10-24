@@ -25,6 +25,12 @@ abstract class Employee {
         isOnShift = true;
     }
 
+    @Override 
+    public boolean equals(Object other){
+        Employee otherEmployee = (Employee) other;
+        return otherEmployee.getName().equals(name) && otherEmployee.getEmployeeID().equals(employeeID);
+    }
+
     public String getName() {
         return name;
     }
