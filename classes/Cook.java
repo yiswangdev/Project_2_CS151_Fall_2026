@@ -1,6 +1,8 @@
 package classes;
 
 import Interface.Orderhandler;
+import utils.ClassInstanceLimit;
+
 import java.util.ArrayList;
 
 public class Cook extends Employee implements Orderhandler {
@@ -10,6 +12,7 @@ public class Cook extends Employee implements Orderhandler {
 
     public Cook(String name, String employeeID) {
         super(name, employeeID);
+        ClassInstanceLimit.checkLimit("Cook");
         currentOrders = new ArrayList<>();
         cookCounter++;
     }

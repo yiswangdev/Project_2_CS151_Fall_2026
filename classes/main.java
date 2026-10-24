@@ -2,18 +2,28 @@ package classes;
 
 import java.util.Scanner;
 
+import exceptions.InstanceLimitException;
+
 //Created by: Eric Wang
 public class main {
     private Restaurant restaurant;
     private Scanner scanner;
     private int orderNumber = 101;
-    
+
     public main() {
-        restaurant = new Restaurant();
+
         scanner = new Scanner(System.in);
+
+        try {
+            restaurant = new Restaurant();
+        } catch (InstanceLimitException e) {
+            System.out.println("error");
+        }
+
         for (int i = 1; i <= 4; i++) {
             restaurant.addTable(new Table(i));
         }
+
         restaurant.addEmployee(new Server("Jamie", "S1", "Hey there! Welcome to our restaurant!"));
         restaurant.addEmployee(new Cook("Emily", "C1"));
         restaurant.addMenuItem(new MenuItem("1", "Burger", 12.99, "Beef patty with cheese", 20));
@@ -113,7 +123,7 @@ public class main {
             System.out.println("Server: " + server.getName());
             System.out.println(order.getOrderSummary());
             System.out.println(server.submitOrder(order));
-
+            
             Cook cook = restaurant.assignCook(order);
             cook.prepareOrder(order);
             cook.finishPreparation(order);

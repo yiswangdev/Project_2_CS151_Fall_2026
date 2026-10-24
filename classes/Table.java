@@ -1,5 +1,7 @@
 package classes;
 
+import utils.ClassInstanceLimit;
+
 // created by Maria
 public class Table {
     private final int tableNumber;
@@ -13,6 +15,7 @@ public class Table {
      * @param tableNumber the number identifying this table
      */
     public Table(int tableNumber) {
+        ClassInstanceLimit.checkLimit("Cook");
         this.tableNumber = tableNumber;
         this.isOccupied = false;
         this.customer = null;

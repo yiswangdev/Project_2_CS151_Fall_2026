@@ -3,6 +3,7 @@ package classes;
 import Interface.Orderhandler;
 import java.util.ArrayList;
 
+//created by Maria
 public class Server extends Employee implements Orderhandler {
     private final String greeting;
     private final ArrayList<Table> assignedTables;
