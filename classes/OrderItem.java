@@ -10,7 +10,7 @@ import exceptions.InstanceLimitException;
 public class OrderItem {
     private MenuItem menuItem;
     private int quantity;
-    private ArrayList<String> characteristics;
+    private String characteristic;
     //private static int orderItemCounter = 0;
     private static final Set<OrderItem> instances = new HashSet<>();
 
@@ -23,7 +23,7 @@ public class OrderItem {
         }
         this.menuItem = menuItem;
         this.quantity = quantity;
-        this.characteristics = new ArrayList<>();
+        //this.characteristics = new ArrayList<>();
         //orderItemCounter++;
         for (OrderItem orderItem : instances) {
             if (orderItem.menuItem.equals(menuItem) && orderItem.quantity == quantity) {
@@ -36,27 +36,19 @@ public class OrderItem {
         }
     }
 
-    public void addCharacteristic(String characteristic) {
-        if (characteristic != null && !characteristic.isBlank() && !characteristics.contains(characteristic)) {
-            characteristics.add(characteristic);
-        }
+    public void setCharacteristic(String characteristic) {
+        this.characteristic = characteristic;
     }
-
-    public void removeCharacteristic(String characteristic) {
-        characteristics.remove(characteristic);
-    }
-
     public double calculateSubtotal() {
         return menuItem.priceFor(quantity);
     }
 
     public String getDescription() {
-        String description = quantity + "x ";
-
-        for (String characteristic : characteristics) {
-            description += characteristic + " ";
+        String charString = "";
+        if(characteristic != null){
+            charString = characteristic + " ";
         }
-
+        String description = quantity + "x " + charString;
         return description + menuItem.getName();
     }
 

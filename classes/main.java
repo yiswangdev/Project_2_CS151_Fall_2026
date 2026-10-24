@@ -17,7 +17,7 @@ public class main {
         }
 
         restaurant.addEmployee(new Server("Jamie", "S1", "Hey there! Welcome to our restaurant!"));
-        restaurant.addEmployee(new Cook("Emily", "C1"));
+        restaurant.addEmployee(new Cook("Emily", "C1", "Spicy"));
         restaurant.addMenuItem(new MenuItem("1", "Burger", 12.99, "Beef patty with cheese", 20));
         restaurant.addMenuItem(new MenuItem("2", "Alfredo Pasta", 14.99, "Fettuccine in cream sauce", 20));
         restaurant.addMenuItem(new MenuItem("3", "Caesar Salad", 8.99, "Romaine with parmesan", 20));
@@ -58,7 +58,7 @@ public class main {
     public void run() {
         String nextCustomer = "y";
         while (nextCustomer.equalsIgnoreCase("y")) {
-            if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
+            /*if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
                 System.out.print("Did a customer leave? Enter table number (0 for none): ");
                 int leaving = readInt();
                 if (leaving >= 1 && leaving <= restaurant.getTables().size()
@@ -66,7 +66,8 @@ public class main {
                     restaurant.getTables().get(leaving - 1).releaseTable();
                     System.out.println("Table " + leaving + " is now available.");
                 }
-            }
+            }*/
+           
             if (restaurant.findAvailableTables().isEmpty()) {
                 System.out.println("All tables are full.");
                 break;
@@ -160,6 +161,8 @@ public class main {
             cook.prepareOrder(order);
             cook.finishOrder(order);
             System.out.println(server.deliverOrder(order) + "table " + tableChoice + ".");
+            System.out.println("Here is your food:");
+            System.out.println(order);
             System.out.print("Is the customer leaving? (y/n): ");
             if (ScannerHelper.getInput().trim().equalsIgnoreCase("y")) {
                 customer.leaveRestaurant();
