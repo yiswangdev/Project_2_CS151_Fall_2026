@@ -8,7 +8,7 @@ import exceptions.InstanceLimitException;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
-// created by Maria
+// Created by: Maria
 public class MenuItem {
     private final String id;
     private final String name;
@@ -18,8 +18,8 @@ public class MenuItem {
 
     private static final HashSet<Object> instances = new HashSet<>();
 
-
-    public MenuItem(String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException{
+    public MenuItem(String name, double price, String description, int availableQuantity)
+            throws DuplicateObjectException, InstanceLimitException {
         this(null, name, price, description, availableQuantity);
     }
 

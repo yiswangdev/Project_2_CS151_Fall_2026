@@ -8,9 +8,9 @@ import exceptions.InstanceLimitException;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
-//Created by: Eric Wang
+// Created by: Eric Wang
 public class Customer {
-    
+
     private String name;
     private Table table;
     private Order order;
@@ -48,7 +48,8 @@ public class Customer {
         order.setCustomer(this);
     }
 
-    public void requestAdditionalItem(MenuItem item, int quantity) throws IllegalArgumentException, DuplicateObjectException, InstanceLimitException{
+    public void requestAdditionalItem(MenuItem item, int quantity)
+            throws IllegalArgumentException, DuplicateObjectException, InstanceLimitException {
         if (order == null) {
             System.out.println("Place an order before requesting another item.");
             return;

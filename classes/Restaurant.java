@@ -98,6 +98,7 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return "Restaurant: " + tables.size() + " tables, " + employees.size() + " employees, " + menuItems.size() + " menu items";
+        return "Restaurant: " + tables.size() + " tables, " + employees.size() + " employees, " + menuItems.size()
+                + " menu items";
     }
 }

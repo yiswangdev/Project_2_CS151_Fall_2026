@@ -62,7 +62,7 @@ public class ClassInstanceLimit {
                 }
                 orderItemCount++;
                 break;
-            
+
             case "Table":
                 if (tableCount >= MAXIMUM_INSTANCES) {
                     throw new InstanceLimitException(exceptionMessage + className);
@@ -74,6 +74,4 @@ public class ClassInstanceLimit {
                 throw new IllegalArgumentException(className + " does not exist!");
         }*/
     }
-
-    
 }

@@ -1,6 +1,5 @@
 package classes;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +8,7 @@ import exceptions.InstanceLimitException;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
+// Created by: Margarita
 public class OrderItem {
     private MenuItem menuItem;
     private int quantity;
@@ -38,13 +38,14 @@ public class OrderItem {
     public void setCharacteristic(String characteristic) {
         this.characteristic = characteristic;
     }
+
     public double calculateSubtotal() {
         return menuItem.priceFor(quantity);
     }
 
     public String getDescription() {
         String charString = "";
-        if(characteristic != null){
+        if (characteristic != null) {
             charString = characteristic + " ";
         }
         String description = quantity + "x " + charString;

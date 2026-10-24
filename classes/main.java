@@ -1,31 +1,32 @@
 package classes;
+
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
 import utils.ScannerHelper;
 
-//Created by: Eric Wang
+// Created by: Eric Wang
 public class main {
     private Restaurant restaurant;
 
     public main() {
-        try{
-        restaurant = new Restaurant();
+        try {
+            restaurant = new Restaurant();
 
-        for (int i = 1; i <= 4; i++) {
-            restaurant.addTable(new Table(i));
-        }
+            for (int i = 1; i <= 4; i++) {
+                restaurant.addTable(new Table(i));
+            }
 
-        restaurant.addEmployee(new Server("Jamie", "S1", "Hey there! Welcome to our restaurant!"));
-        restaurant.addEmployee(new Cook("Emily", "C1", "Spicy"));
-        restaurant.addMenuItem(new MenuItem("1", "Burger", 12.99, "Beef patty with cheese", 20));
-        restaurant.addMenuItem(new MenuItem("2", "Alfredo Pasta", 14.99, "Fettuccine in cream sauce", 20));
-        restaurant.addMenuItem(new MenuItem("3", "Caesar Salad", 8.99, "Romaine with parmesan", 20));
-        restaurant.addMenuItem(new MenuItem("4", "Lemonade", 2.99, "Fresh squeezed", 20));
+            restaurant.addEmployee(new Server("Jamie", "S1", "Hey there! Welcome to our restaurant!"));
+            restaurant.addEmployee(new Cook("Emily", "C1", "Spicy"));
+            restaurant.addMenuItem(new MenuItem("1", "Burger", 12.99, "Beef patty with cheese", 20));
+            restaurant.addMenuItem(new MenuItem("2", "Alfredo Pasta", 14.99, "Fettuccine in cream sauce", 20));
+            restaurant.addMenuItem(new MenuItem("3", "Caesar Salad", 8.99, "Romaine with parmesan", 20));
+            restaurant.addMenuItem(new MenuItem("4", "Lemonade", 2.99, "Fresh squeezed", 20));
         } catch (DuplicateObjectException e) {
             System.out.println("Duplicate object: " + e.getMessage());
         } catch (IllegalStateException e) {
             System.out.println("Instance limit reached: " + e.getMessage());
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -85,9 +86,9 @@ public class main {
             }
             System.out.print("Enter customer name: ");
             Customer customer;
-            try{
+            try {
                 customer = new Customer(ScannerHelper.getInput());
-            }catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println("Duplicate object: " + e.getMessage());
                 customer = null;
             } catch (InstanceLimitException e) {
@@ -104,9 +105,9 @@ public class main {
             restaurant.seatCustomer(customer, table);
             System.out.println(customer.getName() + " has been seated at Table " + tableChoice + ".");
             Order order;
-            try{
+            try {
                 order = new Order(customer, server);
-            }catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println("Duplicate object: " + e.getMessage());
                 order = null;
             } catch (InstanceLimitException e) {
@@ -132,9 +133,9 @@ public class main {
                 System.out.print("Quantity: ");
                 int quantity = readInt();
                 if (quantity > 0 && item.canFulfillOrder(quantity)) {
-                    try{
+                    try {
                         customer.requestAdditionalItem(item, quantity);
-                    }catch (IllegalArgumentException e) {
+                    } catch (IllegalArgumentException e) {
                         System.out.println("Duplicate object: " + e.getMessage());
                     } catch (InstanceLimitException e) {
                         System.out.println("Instance limit reached: " + e.getMessage());

@@ -8,7 +8,7 @@ import exceptions.InstanceLimitException;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
-// created by Maria
+// Created by: Maria
 public class Table {
     private final int tableNumber;
     private boolean isOccupied;
@@ -64,7 +64,7 @@ public class Table {
         return "Table " + tableNumber + ": Occupied by " + customer.getName();
     }
 
-    public int getTableNumber(){
+    public int getTableNumber() {
         return tableNumber;
     }
 

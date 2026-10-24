@@ -5,7 +5,7 @@ import java.util.*;
 import exceptions.*;
 import utils.*;
 
-//created by Maria
+// Created by: Maria
 public class Server extends Employee implements Orderhandler {
     private final String greeting;
     private final ArrayList<Table> assignedTables;

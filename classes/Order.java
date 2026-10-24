@@ -9,6 +9,7 @@ import exceptions.InstanceLimitException;
 import utils.ClassInstanceLimit;
 import utils.DuplicateInstancesCheck;
 
+// Created by: Isaac
 public class Order {
     public static final int MAX_QUANTITY_PER_ITEM = 20;
     private String id;
@@ -20,7 +21,7 @@ public class Order {
     private static final HashSet<Object> instances = new HashSet<>();
 
 
-    public Order(/*String id,*/ Customer customer, Server server) throws DuplicateObjectException, InstanceLimitException{
+    public Order(Customer customer, Server server) throws DuplicateObjectException, InstanceLimitException{
         ClassInstanceLimit.checkLimit(instances, "Order");
         this.id = "" + instances.size()+1;
         this.customer = customer;
@@ -84,7 +85,7 @@ public class Order {
         return this.toString() + "Total: $" + String.format("%.2f", calculateTotal());
     }
 
-    ArrayList<OrderItem> getOrders(){
+    ArrayList<OrderItem> getOrders() {
         return items;
     }
 

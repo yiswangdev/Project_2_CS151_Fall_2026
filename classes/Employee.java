@@ -11,6 +11,8 @@ package classes;
  * possible future implementation Janitor, Busser,
  * Bartender, etc.
  */
+
+// Created by: Isaac
 abstract class Employee {
     private String name, employeeID;
     private boolean isBusy = false;
@@ -38,12 +40,10 @@ abstract class Employee {
     }
 
     void assignTask() {
-        // some other logic
         isBusy = true;
     }
 
     void completeTask() {
-        // finish some task/order
         isBusy = false;
     }
 
