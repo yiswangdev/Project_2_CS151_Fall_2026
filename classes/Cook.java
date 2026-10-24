@@ -13,14 +13,15 @@ import javax.management.InstanceAlreadyExistsException;
 
 public class Cook extends Employee implements Orderhandler {
 
-    private ArrayList<Order> currentOrders;
+    private Order currentOrder;
+    private String foodCharacteristic;
     //private static int cookCounter = 0;
     private static final Set<Cook> instances = new HashSet<>();
 
-    public Cook(String name, String employeeID) throws DuplicateObjectException, InstanceLimitException{
+    public Cook(String name, String employeeID, String characteristic) throws DuplicateObjectException, InstanceLimitException{
         super(name, employeeID);
+        foodCharacteristic = characteristic;
         ClassInstanceLimit.checkLimit("Cook");
-        currentOrders = new ArrayList<>();
         //cookCounter++;
         for (Cook cook : instances) {
             if (cook.getName().equals(name) && cook.getEmployeeID().equals(employeeID)) {
@@ -39,25 +40,27 @@ public class Cook extends Employee implements Orderhandler {
 
     public void acceptOrder(Order order) {
         if (canHandleOrder(order)) {
-            currentOrders.add(order);
+            currentOrder = order;
             order.assignCook(this);
             assignTask();
         }
     }
 
     public void updateOrderStatus(Order order) {
-        if (currentOrders.contains(order)) {
-            order.updateStatus("PREPARING");
+        order.updateStatus("PREPARING");
+        for (OrderItem item : currentOrder.getOrders()) {
+                item.setCharacteristic(foodCharacteristic);
         }
     }
 
     public void finishOrder(Order order) {
-        if (currentOrders.contains(order)) {
+        if (currentOrder != null) {
+            
             order.updateStatus("READY");
-            currentOrders.remove(order);
+            currentOrder = null;
+
             completeTask();
-            System.out.println(
-                    "Order " + order.getId() + " is ready to be picked up by " + order.getServer().getName() + ".");
+            System.out.println("Order " + order.getId() + " is ready to be picked up by " + order.getServer().getName() + ".");
         }
     }
 
@@ -69,15 +72,19 @@ public class Cook extends Employee implements Orderhandler {
         }
     }
 
-    public void addSpecialCharacteristic(OrderItem item, String characteristic) {
-        if (item != null && characteristic != null && !characteristic.isBlank()) {
-            item.addCharacteristic(characteristic);
+    public void addSpecialCharacteristic(OrderItem item) {
+        if (item != null) {
+            item.setCharacteristic(foodCharacteristic);
             System.out.println("Your item has been customized: " + item.getDescription());
         }
     }
 
     @Override
     public String toString() {
-        return "Cook " + super.toString() + ", orders in progress: " + currentOrders.size();
+        int inProgressCount = 1;
+        if(currentOrder == null){
+            inProgressCount = 0;
+        }
+        return "Cook " + super.toString() + ", orders in progress: " + inProgressCount;
     }
 }

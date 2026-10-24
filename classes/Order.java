@@ -83,15 +83,19 @@ public class Order {
     }
 
     public String getOrderSummary() {
-        String summary = "";
-        for (OrderItem item : items) {
-            summary += item + "\n";
-        }
-        return summary + "Total: $" + String.format("%.2f", calculateTotal());
+        return this.toString() + "Total: $" + String.format("%.2f", calculateTotal());
+    }
+
+    ArrayList<OrderItem> getOrders(){
+        return items;
     }
 
     @Override
     public String toString() {
-        return "Order " + id + " [" + status + "] - " + items.size() + " item(s), Total: $" + String.format("%.2f", calculateTotal());
+        String str = "";
+        for (OrderItem item : items) {
+            str += item.getDescription() + "\n";
+        }
+        return str;
     }
 }
