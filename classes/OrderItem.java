@@ -14,7 +14,7 @@ public class OrderItem {
     //private static int orderItemCounter = 0;
     private static final Set<OrderItem> instances = new HashSet<>();
 
-    public OrderItem(MenuItem menuItem, int quantity) throws Exception{
+    public OrderItem(MenuItem menuItem, int quantity) throws DuplicateObjectException, InstanceLimitException{
         if (menuItem == null) {
             throw new IllegalArgumentException("Menu item cannot be null.");
         }

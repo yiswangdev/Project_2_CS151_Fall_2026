@@ -1,4 +1,5 @@
 package classes;
+import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
 import utils.ScannerHelper;
 
@@ -8,7 +9,7 @@ public class main {
     //private int orderNumber = 101;
 
     public main() {
-
+        try{
         restaurant = new Restaurant();
 
         for (int i = 1; i <= 4; i++) {
@@ -21,6 +22,13 @@ public class main {
         restaurant.addMenuItem(new MenuItem("2", "Alfredo Pasta", 14.99, "Fettuccine in cream sauce", 20));
         restaurant.addMenuItem(new MenuItem("3", "Caesar Salad", 8.99, "Romaine with parmesan", 20));
         restaurant.addMenuItem(new MenuItem("4", "Lemonade", 2.99, "Fresh squeezed", 20));
+        } catch (DuplicateObjectException e) {
+            System.out.println("Duplicate object: " + e.getMessage());
+        } catch (IllegalStateException e) {
+            System.out.println("Instance limit reached: " + e.getMessage());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void displayTables() {
@@ -42,13 +50,12 @@ public class main {
             try {
                 return Integer.parseInt(ScannerHelper.getInput().trim());
             } catch (NumberFormatException e) {
-                System.out.print("Enter a number: ");
+                System.out.print("Enter a number instead: ");
             }
         }
     }
 
     public void run() {
-
         String nextCustomer = "y";
         while (nextCustomer.equalsIgnoreCase("y")) {
             if (restaurant.findAvailableTables().size() < restaurant.getTables().size()) {
@@ -78,15 +85,38 @@ public class main {
                 }
             }
             System.out.print("Enter customer name: ");
-            Customer customer = new Customer(ScannerHelper.getInput());
+            Customer customer;
+            try{
+                customer = new Customer(ScannerHelper.getInput());
+            }catch (IllegalArgumentException e) {
+                System.out.println("Duplicate object: " + e.getMessage());
+                customer = null;
+            } catch (InstanceLimitException e) {
+                System.out.println("Instance limit reached: " + e.getMessage());
+                customer = null;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                customer = null;
+            }
 
             Server server = restaurant.assignServer(table);
             System.out.println("Server " + server.getName() + " approaches the table.");
             System.out.println(server.greetCustomer(customer));
             restaurant.seatCustomer(customer, table);
             System.out.println(customer.getName() + " has been seated at Table " + tableChoice + ".");
-
-            Order order = new Order(customer, server);
+            Order order;
+            try{
+                order = new Order(customer, server);
+            }catch (IllegalArgumentException e) {
+                System.out.println("Duplicate object: " + e.getMessage());
+                order = null;
+            } catch (InstanceLimitException e) {
+                System.out.println("Instance limit reached: " + e.getMessage());
+                order = null;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                order = null;
+            }
             customer.placeOrder(order);
             server.acceptOrder(order);
             String another = "y";
@@ -94,7 +124,7 @@ public class main {
                 displayMenu();
                 MenuItem item = null;
                 while (item == null) {
-                    System.out.print("Choose an item: ");
+                    System.out.print("Choose an item out of the ones above: ");
                     int itemChoice = readInt();
                     if (itemChoice >= 1 && itemChoice <= restaurant.getMenuItems().size()) {
                         item = restaurant.getMenuItems().get(itemChoice - 1);
@@ -103,7 +133,15 @@ public class main {
                 System.out.print("Quantity: ");
                 int quantity = readInt();
                 if (quantity > 0 && item.canFulfillOrder(quantity)) {
-                    customer.requestAdditionalItem(item, quantity);
+                    try{
+                        customer.requestAdditionalItem(item, quantity);
+                    }catch (IllegalArgumentException e) {
+                        System.out.println("Duplicate object: " + e.getMessage());
+                    } catch (InstanceLimitException e) {
+                        System.out.println("Instance limit reached: " + e.getMessage());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     System.out.println("Added " + quantity + " x " + item.getName() + ".");
                 } else {
                     System.out.println("Sorry, we can't make that quantity.");
