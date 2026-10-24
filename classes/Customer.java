@@ -47,6 +47,7 @@ public class Customer {
             throw new IllegalArgumentException("Order cannot be null.");
         }
         this.order = order;
+        order.setCustomer(this);
     }
 
     public void requestAdditionalItem(MenuItem item, int quantity) throws Exception{

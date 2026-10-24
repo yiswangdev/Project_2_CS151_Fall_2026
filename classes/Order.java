@@ -54,6 +54,10 @@ public class Order {
         return cook;
     }
 
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public void updateStatus(String newStatus) {
         status = newStatus;
     }
