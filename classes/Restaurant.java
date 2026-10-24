@@ -5,29 +5,29 @@ import java.util.HashSet;
 import java.util.Set;
 
 import exceptions.*;
+import utils.ClassInstanceLimit;
+import utils.DuplicateInstancesCheck;
 
 //Created By: Eric Wang
 public class Restaurant {
     private ArrayList<Table> tables;
     private ArrayList<Employee> employees;
     private ArrayList<MenuItem> menuItems;
-    //private static int resturantCounter = 0;
-    private static final Set<Restaurant> instances = new HashSet<>();
+    private static final HashSet<Object> instances = new HashSet<>();
 
     Restaurant() throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "Restaurant");
         tables = new ArrayList<>();
         employees = new ArrayList<>();
         menuItems = new ArrayList<>();
-        //resturantCounter++;
-        for (Restaurant restaurant : instances) {
-            if (restaurant.getTables().equals(tables) && restaurant.getEmployees().equals(employees) && restaurant.getMenuItems().equals(menuItems)) {
-                throw new DuplicateObjectException("Duplicate restaurant");
-            }
-        }
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "Restaurant");
         instances.add(this);
-        if(instances.size() > 100){
-            throw new InstanceLimitException("Too many order items created! - " + instances.size());
-        }
+    }
+
+    @Override 
+    public boolean equals(Object other){
+        Restaurant otherRestaurant = (Restaurant) other;
+        return otherRestaurant.getTables().equals(tables) && otherRestaurant.getEmployees().equals(employees) && otherRestaurant.getMenuItems().equals(menuItems);
     }
 
     public void addTable(Table table) {
@@ -98,6 +98,7 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return "Restaurant: " + tables.size() + " tables, " + employees.size() + " employees, " + menuItems.size() + " menu items";
+        return "Restaurant: " + tables.size() + " tables, " + employees.size() + " employees, " + menuItems.size()
+                + " menu items";
     }
 }

@@ -1,20 +1,22 @@
 package classes;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import exceptions.DuplicateObjectException;
 import exceptions.InstanceLimitException;
+import utils.ClassInstanceLimit;
+import utils.DuplicateInstancesCheck;
 
+// Created by: Margarita
 public class OrderItem {
     private MenuItem menuItem;
     private int quantity;
-    private ArrayList<String> characteristics;
-    //private static int orderItemCounter = 0;
-    private static final Set<OrderItem> instances = new HashSet<>();
+    private String characteristic;
+    private static final HashSet<Object> instances = new HashSet<>();
 
     public OrderItem(MenuItem menuItem, int quantity) throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "OrderItem");
         if (menuItem == null) {
             throw new IllegalArgumentException("Menu item cannot be null.");
         }
@@ -23,27 +25,18 @@ public class OrderItem {
         }
         this.menuItem = menuItem;
         this.quantity = quantity;
-        this.characteristics = new ArrayList<>();
-        //orderItemCounter++;
-        for (OrderItem orderItem : instances) {
-            if (orderItem.menuItem.equals(menuItem) && orderItem.quantity == quantity) {
-                throw new DuplicateObjectException("Duplicate order: " + quantity + " " + menuItem);
-            }
-        }
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "OrderItem");
         instances.add(this);
-        if(instances.size() > 100){
-            throw new InstanceLimitException("Too many order items created! - " + instances.size());
-        }
     }
 
-    public void addCharacteristic(String characteristic) {
-        if (characteristic != null && !characteristic.isBlank() && !characteristics.contains(characteristic)) {
-            characteristics.add(characteristic);
-        }
+    @Override 
+    public boolean equals(Object other){
+        OrderItem otherOrderItem = (OrderItem) other;
+        return otherOrderItem.menuItem.equals(menuItem) && otherOrderItem.quantity == quantity;
     }
 
-    public void removeCharacteristic(String characteristic) {
-        characteristics.remove(characteristic);
+    public void setCharacteristic(String characteristic) {
+        this.characteristic = characteristic;
     }
 
     public double calculateSubtotal() {
@@ -51,12 +44,11 @@ public class OrderItem {
     }
 
     public String getDescription() {
-        String description = quantity + "x ";
-
-        for (String characteristic : characteristics) {
-            description += characteristic + " ";
+        String charString = "";
+        if (characteristic != null) {
+            charString = characteristic + " ";
         }
-
+        String description = quantity + "x " + charString;
         return description + menuItem.getName();
     }
 

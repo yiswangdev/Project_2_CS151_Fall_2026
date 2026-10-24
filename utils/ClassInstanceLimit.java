@@ -1,21 +1,25 @@
 package utils;
 
 import exceptions.InstanceLimitException;
+import java.util.*;
 
 public class ClassInstanceLimit {
 
     private static final int MAXIMUM_INSTANCES = 100;
-    private static int resturantCount = 0;
+    /*static int resturantCount = 0;
     private static int employeeCount = 0;
     private static int customerCount = 0;
     private static int menuItemCount = 0;
     private static int orderCount = 0;
     private static int orderItemCount = 0;
     private static int tableCount = 0;
-    private static String exceptionMessage = "Cannot make more than 100 instances of: ";
+    private static String exceptionMessage = "Cannot make more than 100 instances of: ";*/
 
-    public static void checkLimit(String className) {
-        switch (className) {
+    public static void checkLimit(HashSet<Object> instances, String className) throws InstanceLimitException {
+        if (instances.size() >= MAXIMUM_INSTANCES) {
+            throw new InstanceLimitException("Cannot create more than " + MAXIMUM_INSTANCES + " instances of " + className);
+        }
+        /*switch (className) {
 
             case "Resturant":
                 if (resturantCount >= MAXIMUM_INSTANCES) {
@@ -58,7 +62,7 @@ public class ClassInstanceLimit {
                 }
                 orderItemCount++;
                 break;
-            
+
             case "Table":
                 if (tableCount >= MAXIMUM_INSTANCES) {
                     throw new InstanceLimitException(exceptionMessage + className);
@@ -68,8 +72,6 @@ public class ClassInstanceLimit {
 
             default:
                 throw new IllegalArgumentException(className + " does not exist!");
-        }
+        }*/
     }
-
-    
 }

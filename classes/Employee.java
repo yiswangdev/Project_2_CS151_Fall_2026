@@ -11,19 +11,24 @@ package classes;
  * possible future implementation Janitor, Busser,
  * Bartender, etc.
  */
+
+// Created by: Isaac
 abstract class Employee {
     private String name, employeeID;
     private boolean isBusy = false;
     private boolean isOnShift = false;
-    //private static int employeeCounter = 0; abstract classes can't be instantiated
-
 
     Employee(String name, String employeeID) {
         this.name = name;
         this.employeeID = employeeID;
         isBusy = false;
         isOnShift = true;
-        //employeeCounter++;
+    }
+
+    @Override 
+    public boolean equals(Object other){
+        Employee otherEmployee = (Employee) other;
+        return otherEmployee.getName().equals(name) && otherEmployee.getEmployeeID().equals(employeeID);
     }
 
     public String getName() {
@@ -35,12 +40,10 @@ abstract class Employee {
     }
 
     void assignTask() {
-        // some other logic
         isBusy = true;
     }
 
     void completeTask() {
-        // finish some task/order
         isBusy = false;
     }
 
