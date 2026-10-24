@@ -47,27 +47,31 @@ public class MenuItem {
         return name;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
     public boolean isAvailable() {
         return availableQuantity > 0;
     }
 
     public boolean canFulfillOrder(int quantity) {
         if (quantity < 1) {
-            throw new IllegalArgumentException("Quantity must be at least 1.");
+            throw new QuantityUnavailableException("Quantity must be at least 1.");
         }
         return quantity <= availableQuantity;
     }
 
     public void fulfillOrder(int quantity) {
         if (!canFulfillOrder(quantity)) {
-            throw new QuantityUnavailableException("Not enough servings available.");
+            throw new QuantityUnavailableException("Not enough servings available. We only have " + availableQuantity + "x left.");
         }
         availableQuantity -= quantity;
     }
 
     public double priceFor(int quantity) {
         if (quantity < 1) {
-            throw new IllegalArgumentException("Quantity must be at least 1.");
+            throw new QuantityUnavailableException("Quantity must be at least 1.");
         }
         return price * quantity;
     }
