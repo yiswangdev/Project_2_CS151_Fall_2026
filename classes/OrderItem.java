@@ -47,7 +47,6 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return getDescription() + " - $" 
-                + String.format("%.2f", calculateSubtotal());
+        return getDescription() + " - $" + String.format("%.2f", calculateSubtotal());
     }
 }

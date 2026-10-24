@@ -44,9 +44,16 @@ abstract class Employee {
         isBusy = false;
     }
 
-    boolean isAvailableForWork(){
-        return !isBusy && isOnShift;
+    Boolean isAvailableForWork(){
+        if (!isBusy && isOnShift) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    
+    @Override
+    public String toString() {
+        return name + " (ID: " + employeeID + ")";
+    }
 }
