@@ -122,7 +122,7 @@ public class main {
     private Order createOrder(Customer customer, Server server) {
         try {
             return new Order(customer, server);
-        } catch (IllegalArgumentException e) {
+        } catch (DuplicateObjectException e) {
             System.out.println("Duplicate object: " + e.getMessage());
         } catch (InstanceLimitException e) {
             System.out.println("Instance limit reached: " + e.getMessage());
