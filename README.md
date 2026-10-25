@@ -67,40 +67,40 @@ All team members contributed to the development of the Restaurant Operating Syst
 
 
 Eric Wang: 
--fixed folder name and package conflicts
--Completed core functionality of Main, Customer, Restaraunt
+- fixed folder name and package conflicts
+- Completed core functionality of Main, Customer, Restaraunt
     -> added options to main, added import for interface
--made all files compatabile with each other 
+- made all files compatabile with each other 
 
 Maria Fediakina:
--Completed core functionality of MenuItem, Table, Server
+- Completed core functionality of MenuItem, Table, Server
     - fixed bugs and made sure they were compatible with main
--added toString() to each class
--enabled junit tests
--finalized README.md
--removed deadcode and polished final code
+- added toString() to each class
+- enabled junit tests
+- finalized README.md
+- removed deadcode and polished final code
 
 Margarita Sergienko: 
--add Order class variables getters constructor
--add Server class methods and order handling
--Completed core functionality of OrderItem, Cook
--worked on core of README
--implemented block of duplicate objects
--added try and catch blocks in main 
+- add Order class variables getters constructor
+- add Server class methods and order handling
+- Completed core functionality of OrderItem, Cook
+- worked on core of README
+- implemented block of duplicate objects
+- added try and catch blocks in main 
 
 Isaac Guevarra: 
--Completed core functionality of OrderHandler, Employee, Order 
--fixed bug with package in Table.java 
--changed and implemented methods for order 
--fixed main() logic accordingly 
+- Completed core functionality of OrderHandler, Employee, Order 
+- fixed bug with package in Table.java 
+- changed and implemented methods for order 
+- fixed main() logic accordingly 
     -> fixed issues with overlapping output messages in main 
     -> readded missing scannerHelper into main 
--added utils/ClassInstanceLimit.java to deal with max instances 
--added exceptions/InstanceLimitException.java 
--added 'exit' feature in main  
--made sure methods in Cook, Customer, Order were modifying properties of itself or other classes 
+- added utils/ClassInstanceLimit.java to deal with max instances 
+- added exceptions/InstanceLimitException.java 
+- added 'exit' feature in main  
+- made sure methods in Cook, Customer, Order were modifying properties of itself or other classes 
 
 
 notes:
--we used Claude a couple times to help with merges as we had a had challenge working with git 
--we all helped each other with contributions  
+- we used Claude a couple times to help with merges as we had a had challenge working with git 
+- we all helped each other with contributions  
