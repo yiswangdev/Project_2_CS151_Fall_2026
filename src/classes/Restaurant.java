@@ -12,6 +12,7 @@ public class Restaurant {
     private ArrayList<Table> tables;
     private ArrayList<Employee> employees;
     private ArrayList<MenuItem> menuItems;
+    private String brand = "Default Resturant Name";
     private static final HashSet<Object> instances = new HashSet<>();
 
     public Restaurant() throws DuplicateObjectException, InstanceLimitException{
@@ -19,6 +20,16 @@ public class Restaurant {
         tables = new ArrayList<>();
         employees = new ArrayList<>();
         menuItems = new ArrayList<>();
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "Restaurant");
+        instances.add(this);
+    }
+
+    public Restaurant(String brand) throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "Restaurant");
+        tables = new ArrayList<>();
+        employees = new ArrayList<>();
+        menuItems = new ArrayList<>();
+        this.brand = brand;
         DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "Restaurant");
         instances.add(this);
     }

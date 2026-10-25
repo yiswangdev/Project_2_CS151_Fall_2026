@@ -16,11 +16,6 @@ public class MenuItem {
 
     private static final HashSet<Object> instances = new HashSet<>();
 
-    public MenuItem(String name, double price, String description, int availableQuantity)
-            throws DuplicateObjectException, InstanceLimitException, QuantityUnavailableException {
-        this(null, name, price, description, availableQuantity);
-    }
-
     public MenuItem(String id, String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException, QuantityUnavailableException {
         ClassInstanceLimit.checkLimit(instances, "MenuItem");
         this.id = id;
