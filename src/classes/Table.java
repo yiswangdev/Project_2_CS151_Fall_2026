@@ -11,7 +11,7 @@ import src.utils.DuplicateInstancesCheck;
 public class Table {
     private final int tableNumber;
     private boolean isOccupied;
-    private Customer customer;
+    private Customer customer = null;
     private static final HashSet<Object> instances = new HashSet<>();
  
     /**
@@ -30,7 +30,8 @@ public class Table {
     @Override
     public boolean equals(Object other){
         Table otherTable = (Table) other;
-        return otherTable.tableNumber == tableNumber && otherTable.isOccupied == isOccupied && otherTable.customer.equals(customer);
+        return otherTable.tableNumber == tableNumber && otherTable.isOccupied == isOccupied
+                && otherTable.customer == customer;
     }
 
     public void seatCustomer(Customer customer) {
