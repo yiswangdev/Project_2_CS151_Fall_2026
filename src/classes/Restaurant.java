@@ -37,7 +37,11 @@ public class Restaurant {
     @Override 
     public boolean equals(Object other){
         Restaurant otherRestaurant = (Restaurant) other;
-        return otherRestaurant.getTables().equals(tables) && otherRestaurant.getEmployees().equals(employees) && otherRestaurant.getMenuItems().equals(menuItems);
+        return otherRestaurant.getTables().equals(tables) && otherRestaurant.getEmployees().equals(employees) && otherRestaurant.getMenuItems().equals(menuItems) && otherRestaurant.getBrand().equals(brand);
+    }
+
+    public String getBrand() {
+        return brand;
     }
 
     public void addTable(Table table) {
