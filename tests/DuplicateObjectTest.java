@@ -2,9 +2,7 @@ package tests;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import src.utils.DuplicateInstancesCheck;
 import src.exceptions.DuplicateObjectException;
-import src.exceptions.InstanceLimitException;
 import src.classes.*;
 
 

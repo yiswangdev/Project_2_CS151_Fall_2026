@@ -6,7 +6,6 @@ import src.exceptions.DuplicateObjectException;
 import src.exceptions.InstanceLimitException;
 import src.exceptions.QuantityUnavailableException;
 import src.utils.ClassInstanceLimit;
-import src.utils.DuplicateInstancesCheck;
 
 // Created by: Margarita
 public class OrderItem {
@@ -25,14 +24,7 @@ public class OrderItem {
         }
         this.menuItem = menuItem;
         this.quantity = quantity;
-        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "OrderItem");
         instances.add(this);
-    }
-
-    @Override 
-    public boolean equals(Object other){
-        OrderItem otherOrderItem = (OrderItem) other;
-        return otherOrderItem.menuItem.equals(menuItem) && otherOrderItem.quantity == quantity;
     }
 
     public void setCharacteristic(String characteristic) {
