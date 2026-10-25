@@ -89,16 +89,16 @@ Margarita Sergienko:
 -added try and catch blocks in main 
 
 Isaac Guevarra: 
--Completed core functionality of OrderHandler, Employee, Order
--fixed bug with package in Table.java
--changed and implemented methods for order
+-Completed core functionality of OrderHandler, Employee, Order 
+-fixed bug with package in Table.java 
+-changed and implemented methods for order 
 -fixed main() logic accordingly 
-    -> fixed issues with overlapping output messages in main
-    -> readded missing scannerHelper into main
--added utils/ClassInstanceLimit.java to deal with max instances
--added exceptions/InstanceLimitException.java
--added 'exit' feature in main 
--made sure methods in Cook, Customer, Order were modifing properties of itself or other classes
+    -> fixed issues with overlapping output messages in main 
+    -> readded missing scannerHelper into main 
+-added utils/ClassInstanceLimit.java to deal with max instances 
+-added exceptions/InstanceLimitException.java 
+-added 'exit' feature in main  
+-made sure methods in Cook, Customer, Order were modifying properties of itself or other classes 
 
 
 notes:
