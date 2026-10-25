@@ -93,8 +93,8 @@ Isaac Guevarra:
 - fixed bug with package in Table.java 
 - changed and implemented methods for order 
 - fixed main() logic accordingly 
-    -> fixed issues with overlapping output messages in main 
-    -> readded missing scannerHelper into main 
+    - fixed issues with overlapping output messages in main 
+    - readded missing scannerHelper into main 
 - added utils/ClassInstanceLimit.java to deal with max instances 
 - added exceptions/InstanceLimitException.java 
 - added 'exit' feature in main  
