@@ -22,7 +22,7 @@ public class Order {
 
     public Order(Customer customer, Server server) throws DuplicateObjectException, InstanceLimitException{
         ClassInstanceLimit.checkLimit(instances, "Order");
-        this.id = "" + instances.size()+1;
+        this.id = id + instances.size()+1;
         this.customer = customer;
         this.server = server;
         items = new ArrayList<>();

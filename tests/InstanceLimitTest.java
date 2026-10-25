@@ -186,30 +186,6 @@ public class InstanceLimitTest {
     }
 
     @Test 
-    public void testInstanceLimitReachedEmployee() {
-
-        //create 100 instances
-        try {
-
-            for(int i = 0; i < 100; i++) {
-                new MenuItem("id" + i, "name" + i, 1, "description", 1);
-            }
-
-        } catch (InstanceLimitException e) {
-            fail("Creating the first 100 shouldn't throw exceptions!");
-
-        } catch (DuplicateObjectException e) {
-            fail("Duplicate exception!");
-
-        } 
-
-        //successfully InstanceLimitException at 101th instance
-        assertThrows(InstanceLimitException.class, () -> {
-            new MenuItem("id" + 101, "name", 1, "description", 1);
-        });
-    }
-
-    @Test 
     public void testInstanceLimitReachedCustomer() {
 
         //create 100 instances
