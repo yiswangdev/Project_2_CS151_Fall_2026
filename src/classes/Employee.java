@@ -18,7 +18,7 @@ abstract class Employee {
     private boolean isBusy = false;
     private boolean isOnShift = false;
 
-    Employee(String name, String employeeID) {
+    protected Employee(String name, String employeeID) {
         this.name = name;
         this.employeeID = employeeID;
         isBusy = false;
@@ -39,15 +39,15 @@ abstract class Employee {
         return employeeID;
     }
 
-    void assignTask() {
+    protected void assignTask() {
         isBusy = true;
     }
 
-    void completeTask() {
+    protected void completeTask() {
         isBusy = false;
     }
 
-    boolean isAvailableForWork() {
+    protected boolean isAvailableForWork() {
         return !isBusy && isOnShift;
     }
 

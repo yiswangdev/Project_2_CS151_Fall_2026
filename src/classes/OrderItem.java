@@ -1,7 +1,6 @@
 package src.classes;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import src.exceptions.DuplicateObjectException;
 import src.exceptions.InstanceLimitException;
@@ -16,13 +15,13 @@ public class OrderItem {
     private String characteristic;
     private static final HashSet<Object> instances = new HashSet<>();
 
-    public OrderItem(MenuItem menuItem, int quantity) throws DuplicateObjectException, InstanceLimitException{
+    public OrderItem(MenuItem menuItem, int quantity) throws DuplicateObjectException, InstanceLimitException {
         ClassInstanceLimit.checkLimit(instances, "OrderItem");
         if (menuItem == null) {
             throw new IllegalArgumentException("Menu item cannot be null.");
         }
         if (quantity < 1) {
-            throw new IllegalArgumentException("Quantity must be at least 1.");
+            throw new QuantityUnavailableException("Quantity must be at least 1.");
         }
         this.menuItem = menuItem;
         this.quantity = quantity;

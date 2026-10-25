@@ -6,7 +6,6 @@ import src.exceptions.InstanceLimitException;
 import src.utils.*;
 
 import java.util.HashSet;
-import java.util.Set;
 
 // Created by: Margarita
 public class Cook extends Employee implements Orderhandler {
@@ -59,6 +58,14 @@ public class Cook extends Employee implements Orderhandler {
             acceptOrder(order);
             updateOrderStatus(order);
             System.out.println("Cook " + getName() + " is preparing order " + order.getId() + ".");
+
+            //replicate time it takes to prepare dish
+            try {
+                Thread.sleep(2000); 
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt(); 
+            }
+
         }
     }
 

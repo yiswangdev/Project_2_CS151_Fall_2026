@@ -2,7 +2,6 @@ package src.classes;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 import src.exceptions.DuplicateObjectException;
 import src.exceptions.InstanceLimitException;
@@ -12,7 +11,7 @@ import src.utils.DuplicateInstancesCheck;
 // Created by: Isaac
 public class Order {
     public static final int MAX_QUANTITY_PER_ITEM = 20;
-    private String id;
+    private String id = "";
     private Customer customer;
     private Server server;
     private ArrayList<OrderItem> items;
@@ -24,6 +23,16 @@ public class Order {
     public Order(Customer customer, Server server) throws DuplicateObjectException, InstanceLimitException{
         ClassInstanceLimit.checkLimit(instances, "Order");
         this.id = "" + instances.size()+1;
+        this.customer = customer;
+        this.server = server;
+        items = new ArrayList<>();
+        DuplicateInstancesCheck.checkForDuplicate(instances, (Object)this, "Order");
+        instances.add(this);
+    }
+
+    public Order(String id, Customer customer, Server server) throws DuplicateObjectException, InstanceLimitException{
+        ClassInstanceLimit.checkLimit(instances, "Order");
+        this.id = id + instances.size()+1;
         this.customer = customer;
         this.server = server;
         items = new ArrayList<>();
@@ -85,7 +94,7 @@ public class Order {
         return this.toString() + "Total: $" + String.format("%.2f", calculateTotal());
     }
 
-    ArrayList<OrderItem> getOrders() {
+    public ArrayList<OrderItem> getOrders() {
         return items;
     }
 

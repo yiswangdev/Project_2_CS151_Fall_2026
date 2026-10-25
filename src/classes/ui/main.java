@@ -10,7 +10,7 @@ public class main {
 
     public main() {
         try {
-            restaurant = new Restaurant();
+            restaurant = new Restaurant("Awesome Resturant");
 
             for (int i = 1; i <= 4; i++) {
                 restaurant.addTable(new Table(i));
@@ -178,18 +178,22 @@ public class main {
     }
 
     private void submitOrder(Order order, Server server, int tableChoice) {
+        System.out.println("\n------------------");
+        System.out.println("Receipt\n");
         System.out.println("Order #" + order.getId() + " created!");
         System.out.println("Table: " + tableChoice);
         System.out.println("Server: " + server.getName());
         System.out.println(order.getOrderSummary());
-        System.out.println(server.submitOrder(order));
+        System.out.println("(" + server.submitOrder(order) + ")");
+        System.out.println("------------------\n");
+
     }
 
     private void prepareAndDeliverOrder(Order order, Server server, int tableChoice) {
         Cook cook = restaurant.assignCook(order);
         cook.prepareOrder(order);
         cook.finishOrder(order);
-        System.out.println(server.deliverOrder(order) + "table " + tableChoice + ".");
+        System.out.println(server.deliverOrder(order) + "table " + tableChoice + ".\n");
         System.out.println("Here is your food:");
         System.out.println(order);
     }

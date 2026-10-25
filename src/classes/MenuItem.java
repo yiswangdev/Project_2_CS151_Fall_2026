@@ -1,7 +1,6 @@
 package src.classes;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import src.exceptions.*;
 import src.utils.ClassInstanceLimit;
@@ -16,11 +15,6 @@ public class MenuItem {
     private int availableQuantity;
 
     private static final HashSet<Object> instances = new HashSet<>();
-
-    public MenuItem(String name, double price, String description, int availableQuantity)
-            throws DuplicateObjectException, InstanceLimitException, QuantityUnavailableException {
-        this(null, name, price, description, availableQuantity);
-    }
 
     public MenuItem(String id, String name, double price, String description, int availableQuantity) throws DuplicateObjectException, InstanceLimitException, QuantityUnavailableException {
         ClassInstanceLimit.checkLimit(instances, "MenuItem");
