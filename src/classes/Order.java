@@ -16,6 +16,7 @@ public class Order {
     private Server server;
     private ArrayList<OrderItem> items;
     private Cook cook;
+    private Busser busser;
     private String status = "DRAFT";
     private static final HashSet<Object> instances = new HashSet<>();
 
@@ -57,9 +58,13 @@ public class Order {
     public Server getServer() {
         return server;
     }
-
+    
     public Cook getCook() {
         return cook;
+    }
+
+    public Busser getBusser() {
+        return busser;
     }
 
     public void setCustomer(Customer customer) {
@@ -72,6 +77,10 @@ public class Order {
 
     public void assignCook(Cook cook) {
         this.cook = cook;
+    }
+
+    public void assignBusser(Busser busser) {
+        this.busser = busser;
     }
 
     public void addItem(OrderItem item) {

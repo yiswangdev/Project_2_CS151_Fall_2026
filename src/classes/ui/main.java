@@ -18,6 +18,7 @@ public class main {
 
             restaurant.addEmployee(new Server("Jamie", "S1", "Hey there! Welcome to our restaurant!"));
             restaurant.addEmployee(new Cook("Emily", "C1", "Spicy"));
+            restaurant.addEmployee(new Busser("Alex", "B1", "Careful the plates are hot!"));
             restaurant.addMenuItem(new MenuItem("1", "Burger", 12.99, "Beef patty with cheese", 20));
             restaurant.addMenuItem(new MenuItem("2", "Alfredo Pasta", 14.99, "Fettuccine in cream sauce", 20));
             restaurant.addMenuItem(new MenuItem("3", "Caesar Salad", 8.99, "Romaine with parmesan", 20));
@@ -190,12 +191,21 @@ public class main {
     }
 
     private void prepareAndDeliverOrder(Order order, Server server, int tableChoice) {
+        Busser busser = restaurant.assignBusser(order);
+        busser.acceptOrder(order);
+        System.out.println("Busser " + busser.getName() + " is assigned to deliver order " + order.getId() + ".");
+
         Cook cook = restaurant.assignCook(order);
         cook.prepareOrder(order);
         cook.finishOrder(order);
-        System.out.println(server.deliverOrder(order) + "table " + tableChoice + ".\n");
+
+        busser.updateOrderStatus(order);
+        System.out.println(busser.deliverOrder(order) + "table " + tableChoice + ".");
+        System.out.println("Busser " + busser.getName() + ": \"" + busser.greetTable() + "\"\n");
         System.out.println("Here is your food:");
         System.out.println(order);
+
+        server.finishOrder(order);
     }
 
     private void askCustomerToLeave(Customer customer) {

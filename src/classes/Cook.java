@@ -48,8 +48,11 @@ public class Cook extends Employee implements Orderhandler {
             currentOrder = null;
 
             completeTask();
+            String pickedUpBy = (order.getBusser() != null) 
+                    ? "busser " + order.getBusser().getName() 
+                    : "server " + order.getServer().getName();
             System.out.println(
-                    "Order " + order.getId() + " is ready to be picked up by " + order.getServer().getName() + ".");
+                    "Order " + order.getId() + " is ready to be picked up by " + pickedUpBy + ".");
         }
     }
 
