@@ -102,6 +102,18 @@ public class Restaurant {
         throw new IllegalStateException("No cook is available.");
     }
 
+    public Busser assignBusser(Order order) {
+        if (order == null) {
+            throw new IllegalArgumentException("Order cannot be null.");
+        }
+        for (Employee employee : employees) {
+            if (employee instanceof Busser busser && busser.canHandleOrder(order)) {
+                return busser;
+            }
+        }
+        throw new IllegalStateException("No busser is available.");
+    }
+
     public void seatCustomer(Customer customer, Table table) {
         if (customer == null || table == null) {
             throw new IllegalArgumentException("Customer and table are required.");

@@ -51,10 +51,6 @@ public class Server extends Employee implements Orderhandler {
         return "Server " + getName() + " submitted order " + order.getId() + " to the kitchen.";
     }
 
-    public String deliverOrder(Order order) {
-        finishOrder(order);
-        return "Order " + order.getId() + " was delivered to ";
-    }
 
     @Override
     public boolean canHandleOrder(Order order) {
